@@ -6,6 +6,8 @@ export type AuthAction = ActionType<typeof actions>
 export interface IAuthData {
     readonly authToken: string | null;
     readonly error: string | null;
+    readonly id: string | null;
+    readonly login: string | null;
 }
 
 export interface IAuthState  {
@@ -18,3 +20,9 @@ export interface AuthCreds {
 }
 
 export type IAuthAction = ActionType<typeof actions>
+
+export interface IJwtData {
+    jwtToken: string;
+    id: string;
+    login: string;
+}

@@ -1,15 +1,13 @@
 import React from 'react'
-import style from './style.module.scss'
-import CategoriesPrewiev from './CategoriesPrewiev/CategoriesPrewiev'
-import LastAdv from './LastAdv/LastAdv'
+// import style from './style.module.scss'
+import AdvsBlock from './AdvsBlock/AdvsBlock'
 import Description from './Description/Description'
 
 const Home = () => {
 
     return (
         <React.Fragment>
-            <CategoriesPrewiev />
-            <LastAdv />
+            <AdvsBlock />
             <Description />
         </React.Fragment>
     )

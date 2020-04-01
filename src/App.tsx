@@ -1,55 +1,44 @@
 import React from 'react';
-import { Router, Switch, Route } from 'react-router-dom'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
-import history from './history'
-import {composeWithDevTools} from 'redux-devtools-extension'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import { ConnectedRouter, routerMiddleware } from 'connected-react-router'
+import M from 'materialize-css'
 
 import 'materialize-css/dist/css/materialize.min.css'
 import './App.css';
 
-
-import Header from './Components/Header/Header';
-import Footer from './Components/Footer/Footer';
-import Home from './Components/Home/Home';
-// import Goods from './Components/Goods/Goods';
-// import GoodsCard from './Components/GoodCard/GoodsCard';
-import Authorization from './Components/Authorization/Authorization';
-import Registration from './Components/Registration/Registration';
+import history from './history'
 import rootReducer from './store/rootReducer';
 import rootSaga from './store/rootSaga';
+import Routes from './Routes';
+import Header from './Components/Header/Header';
+import Footer from './Components/Footer/Footer';
 
 
 const sagaMiddleware = createSagaMiddleware()
 
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)))
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(
+  routerMiddleware(history),
+  sagaMiddleware)))
 
 sagaMiddleware.run(rootSaga)
 
-function App() {
+const App = () => {
   return (
     <Provider store={store}>
-      <React.Fragment>
-        <Router history={history}>
-          <Header />
-          <main>
-            <div className="container">
-              <Switch>
-                {/* <Redirect exact from="/" to="/user1" /> */}
-                <Route exact path="/" component={Home} />
-                {/* <Route exact path="/goods" component={Goods} /> */}
-                {/* <Route exact path="/goodsCard" component={GoodsCard} /> */}
-                <Route exact path="/authorization" component={Authorization} />
-                <Route exact path="/registration" component={Registration} />
-              </Switch>
-            </div>
-          </main>
-          <Footer />
-        </Router>
-      </React.Fragment>
+      <ConnectedRouter history={history}>
+        <Header />
+        <main>
+          <div className="container">
+            <Routes />
+          </div>
+        </main>
+        <Footer />
+      </ConnectedRouter>
     </Provider>
   );
 }
 
-export default App;
+export default React.memo(App);
