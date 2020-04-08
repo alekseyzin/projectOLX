@@ -30,18 +30,18 @@ const Header: React.FC<IProps> = (props) => {
     React.useEffect(() => {
         let dropdowns = document.querySelectorAll(".dropdown-trigger");
         M.Dropdown.init(dropdowns, {});
-      }, [props.authToken]);
+    }, [props.authToken]);
 
     let userBlock;
 
     if (props.authToken) {
-        userBlock = <a 
-        className="dropdown-trigger black-text" 
-        href="#!" 
-        data-target="dropdown1"
+        userBlock = <a
+            className="dropdown-trigger black-text"
+            href="#!"
+            data-target="dropdown1"
         >
             <span className={classnames("truncate left", style.nick)}>{props.nick}</span>
-           <i className="material-icons right">arrow_drop_down</i>
+            <i className="material-icons right">arrow_drop_down</i>
         </a>
     } else {
         userBlock = <div className={style.logIn}>
@@ -53,25 +53,29 @@ const Header: React.FC<IProps> = (props) => {
 
     return (
         <React.Fragment>
-        <ul id="dropdown1" className={classnames(style.dropdownPosition, "dropdown-content black-text")}>
-            <li><Link to="/profile">Профиль</Link></li>
-            <li><a href="#!">two</a></li>
-            <li className="divider"></li>
-            <li><Link to='/authorization' className="indigo-text accent-4" onClick={() => props.unAuthUser()}>Выход</Link></li>
-        </ul>
-        <nav className="white">
-            <div className={classnames("container", style.h100)}>
-                <div className="nav-wrapper">
-                    <span className={classnames("left brand-logo", style.logo)}>
-                        <Link to="/">Сакес</Link>
-                    </span>
-                    <ul className="right hide-on-small-and-down">
-                        <li><a href="#!" className="waves-effect waves-light btn"><i className="material-icons left">add</i>Объявление</a></li>
-                        <li>{userBlock}</li>
-                    </ul>
+            <ul id="dropdown1" className={classnames(style.dropdownPosition, "dropdown-content black-text")}>
+                <li><Link to="/profile">Профиль</Link></li>
+                <li><a href="#!">two</a></li>
+                <li className="divider"></li>
+                <li><Link to='/authorization' className="indigo-text accent-4" onClick={() => props.unAuthUser()}>Выход</Link></li>
+            </ul>
+            <nav className="white">
+                <div className={classnames("container", style.h100)}>
+                    <div className="nav-wrapper">
+                        <span className={classnames("left brand-logo", style.logo)}>
+                            <Link to="/">Сакес</Link>
+                        </span>
+                        <ul className="right hide-on-small-and-down">
+                            <li>
+                            <Link to='/addadv' className="waves-effect waves-light btn">
+                                <i className="material-icons left">add</i>Объявление
+                            </Link>
+                            </li>
+                            <li>{userBlock}</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
         </React.Fragment>
     )
 }

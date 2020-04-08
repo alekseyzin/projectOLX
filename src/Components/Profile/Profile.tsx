@@ -88,10 +88,10 @@ const Profile: React.FC<IProps> = (props: IProps) => {
   }
 
   return (
-    <div className={classnames("row container", style.wrapper)}>
+    <div className={classnames("row", style.wrapper)}>
       <h1 className="center-align">Профиль</h1>
       <Avatar />
-      <form className="col s6 offset-s3" onSubmit={submitHandler} >
+      <form className="col s12 m6 offset-m3" onSubmit={submitHandler} >
         <InputTypeText
           id="login"
           type="text"

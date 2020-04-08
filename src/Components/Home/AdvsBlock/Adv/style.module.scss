@@ -1,3 +1,5 @@
+$extra-small-screen-up: 481px !default;
+
 .advWrapper{
     width: 100%;
     display: flex;
@@ -27,9 +29,9 @@
         padding: 10px 10px 10px 20px;
 
         .content{
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            // display: flex;
+            // flex-direction: column;
+            // justify-content: space-between;
             padding-right: 20px;
 
             h4{
@@ -42,6 +44,28 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+        }
+    }
+
+    @media screen and ( max-width: 600px ){
+        flex-direction: column;
+        // margin: 0 auto 10px auto;
+        max-width: 300px;
+        height: 225px;
+
+        .photoWrapper{
+            width: 100%;
+        }
+
+        .contentWrapper{
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+
+            .priceWrapper{
+                flex-direction: row;
+            }
         }
     }
 }

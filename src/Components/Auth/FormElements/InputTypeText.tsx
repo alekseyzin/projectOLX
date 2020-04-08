@@ -8,6 +8,7 @@ interface IProps {
   value: string;
   onChangeHandler: (e: React.FormEvent<HTMLInputElement>) => void;
   dataTooltip?: string;
+  dataLength?: number;
 }
 
 const InputTypeText = (props: IProps) => {
@@ -29,6 +30,7 @@ const InputTypeText = (props: IProps) => {
           data-position="right"
           data-tooltip={props.dataTooltip}
           placeholder=""
+          data-length={props.dataLength}
         />
         <label htmlFor={props.id} className="active">{props.labelText}</label>
       </div>

@@ -41,12 +41,9 @@ export function* authUserSaga() {
 export function* regUserSaga() {
     while (true) {
         const { payload } = yield take(actions.regUser.request)
-        // console.log('payload: ', payload)
         try {
             const result = yield call(regUserRequest, payload.login, payload.password)
-            // console.log('result: ', result)
             if (result) {
-                // Тут положить редирект на страницу с поздравлением
                 yield put(push('/regsuccess'))
             } else {
                 yield put(actions.authUser.failure('Такой пользователь уже существует'))
