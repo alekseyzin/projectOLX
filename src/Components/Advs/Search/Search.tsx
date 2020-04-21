@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import history from '../../../history'
+
 import style from './style.module.scss'
 import classnames from 'classnames'
 
@@ -16,10 +18,10 @@ const Search = (props:IProps) => {
     const changeQuestHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
         setQuestInput(e.currentTarget.value) 
      }
- 
+
      const keyDownQuestHandler = (e:React.KeyboardEvent<HTMLInputElement>) => {
          if (e.key === 'Enter' && questInput){
-            document.location.href = searchPath;
+            history.push(searchPath)
          }
      }
 
