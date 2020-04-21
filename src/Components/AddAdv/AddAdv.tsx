@@ -1,20 +1,37 @@
-import React, { useState, useRef } from 'react'
-import InputTypeText from '../Auth/FormElements/InputTypeText'
-import * as actions from '../../store/addAdv/actions'
+import React, { useState, useRef, useEffect} from 'react'
+import Input from '../FormElements/Input'
+import * as actionsAddAdv from '../../store/addAdv/actions'
+import * as actionsAdv from '../../store/adv/actions'
 import { Dispatch, bindActionCreators } from 'redux'
-import { IRootAction } from '../../store/rootReducer'
+import { IRootAction, IRootState } from '../../store/rootReducer'
 import { connect } from 'react-redux'
 import Photo from './Photo/Photo'
 import style from './style.module.scss'
+import TextArea from '../FormElements/TextArea'
+import { checkLengthInput } from '../../GlobalFunctions/GlobalFunctions'
+import { RouteComponentProps } from 'react-router-dom'
 
 const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) =>
     bindActionCreators(
         {
-            addAdv: actions.addAdv.request
+            addAdv: actionsAddAdv.addAdv.request,
+            checkUserData: actionsAddAdv.checkUserData,
+            getAdvData: actionsAdv.getAdvCard.request,
+            deleteAdvData: actionsAdv.deleteAdvCard,
+
         }, dispatch
     )
 
-type IProps = ReturnType<typeof mapDispatchToProps>
+const mapStateToProps = (state:IRootState) => (
+    {
+        advData: state.advCard.advCardData
+    }
+)
+
+type TParams = { id: string };
+type IProps = ReturnType<typeof mapDispatchToProps> &
+    ReturnType<typeof mapStateToProps>
+    & RouteComponentProps<TParams>
 
 const AddAdv = (props: IProps) => {
 
@@ -24,96 +41,118 @@ const AddAdv = (props: IProps) => {
     const [price, setPrice] = useState('')
     const [tags, setTags] = useState('')
 
-    const photo1 = useRef<HTMLFormElement>(null)
-    const photo2 = useRef<any>(null)
-    const photo3 = useRef(null)
+    const refPhoto1 = useRef<HTMLFormElement | null>(null)
+    const refPhoto2 = useRef<HTMLFormElement | null>(null)
+    const refPhoto3 = useRef<HTMLFormElement | null>(null)
 
-    const titleLength = 70;
-    const descriptionLength = 300;
-    const addressLength = 50;
+    const minTitleLength = 10;
+    const maxTitleLength = 70;
+    const minDescriptionLength = 10;
+    const maxDescriptionLength = 300;
+    const minAddressLength = 4;
+    const maxAddressLength = 30;
+
+    
+
+    useEffect(() => {
+        const textNeedCount = document.querySelectorAll('#title, #description, #address');
+        M.CharacterCounter.init(textNeedCount);
+        props.checkUserData() //Проверяем заполнены ли юзера телефон и ник, если нет то редирект в профиль
+        props.match.params.id && props.getAdvData(props.match.params.id) // если редактирование то подгружаем данные по объяве
+        return ()=> {props.deleteAdvData()}
+    }, [])
+
+    useEffect(()=>{
+        setTitle(props.advData.title)
+        setDescription(props.advData.description)
+        setAddress(props.advData.address)
+        setPrice((parseInt(props.advData.price, 10)).toString())
+        setTags(props.advData.tags)
+    },[props.advData])
+
+    useEffect(()=>{
+        !props.match.params.id && props.deleteAdvData() // удаляем стейт если с редактирования уходим в создание
+    },[ props.match.params.id])
 
     const submitHandler = (e: React.FormEvent<Element>) => {
-        // props.addAdv({ title, description, address, price, tags })
-        // console.log('photo1 ', photo1.current?.elements[0].files.length)
-        console.log('photo1 ', photo1)
-        // console.log('photo1 ', photo1.current?.elements[0].files.length)
-        console.log('photo2 ', photo2.current?.elements[0].files.length)
-        
+        const refPhotos = [refPhoto1, refPhoto2, refPhoto3]
+        // console.log('refPhoto1 ', refPhoto1)
+        // console.log('refPhoto2 ', refPhoto2)
+        const errors = []
+        errors.push(checkLengthInput(title, 'title', minTitleLength, maxTitleLength, setTitle))
+        errors.push(checkLengthInput(description, 'description', minDescriptionLength, maxDescriptionLength, setDescription))
+        errors.push(checkLengthInput(address, 'address', minAddressLength, maxAddressLength, setAddress))
+        if (errors.indexOf(false) === -1){
+            const oldImages = props.advData.images ? props.advData.images : null
+            const _id = props.advData._id ? props.advData._id : null
+            props.addAdv({ title, description, address, price, tags, refPhotos, oldImages, _id })
+        }
         e.preventDefault()
     }
 
     const titleHandler = (e: React.FormEvent<HTMLInputElement>) => {
-
-        e.currentTarget.value.length < titleLength && setTitle(e.currentTarget.value)
+        checkLengthInput(e.currentTarget.value, 'title', minTitleLength, maxTitleLength, setTitle)
     }
 
     const descriptionHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        e.currentTarget.value.length < descriptionLength && setDescription(e.currentTarget.value)
+        checkLengthInput(e.currentTarget.value, 'description', minDescriptionLength, maxDescriptionLength, setDescription)
     }
 
     const addressHandler = (e: React.FormEvent<HTMLInputElement>) => {
-        e.currentTarget.value.length < addressLength && setAddress(e.currentTarget.value)
+        checkLengthInput(e.currentTarget.value, 'address', minAddressLength, maxAddressLength, setAddress)
     }
 
     const priceHandler = (e: React.FormEvent<HTMLInputElement>) => {
-        setPrice(e.currentTarget.value)
+        checkLengthInput(e.currentTarget.value, 'price', 0, 0, setPrice)
     }
 
     const tagsHandler = (e: React.FormEvent<HTMLInputElement>) => {
-        setTags(e.currentTarget.value)
+        checkLengthInput(e.currentTarget.value, 'tags', 0, 0, setTags)
     }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var textNeedCount = document.querySelectorAll('#title, #description');
-        M.CharacterCounter.init(textNeedCount);
-    });
 
     return (
         <div className="row">
             <h1 className="center-align">Разместить объявление на Сакесе</h1>
             <div className={style.photoWrapper}>
-                <Photo id="photo1" refPhoto={photo1}/>
-                <Photo id="photo2" refPhoto={photo2}/>
-                <Photo id="photo3" refPhoto={photo3}/>
+                <Photo id="photo1" refPhoto={refPhoto1} src={props.advData.images[0]?.url || ''}/>
+                <Photo id="photo2" refPhoto={refPhoto2} src={props.advData.images[1]?.url || ''}/>
+                <Photo id="photo3" refPhoto={refPhoto3} src={props.advData.images[2]?.url || ''}/>
             </div>
             <form className="col s12 m6 offset-m3" onSubmit={submitHandler} >
-                <InputTypeText
+                <Input
                     id="title"
                     type="text"
                     labelText="Заголовок"
                     value={title}
                     onChangeHandler={titleHandler}
-                    dataLength={titleLength}
+                    maxLength={maxTitleLength}
+                    dataError={"Не менее " + minTitleLength + " символов"}
                 />
-                <div className="row">
-                    <div className="input-field col s12">
-                        <textarea
-                            id="description"
-                            className="materialize-textarea"
-                            value={description}
-                            onChange={descriptionHandler}
-                            placeholder=" "
-                            data-length={descriptionLength}
-                        />
-                        <label className="active" htmlFor="description">Описание объявления</label>
-                    </div>
-                </div>
-                <InputTypeText
+                <TextArea
+                    id="description"
+                    labelText="Описание объявления"
+                    value={description}
+                    onChangeHandler={descriptionHandler}
+                    maxLength={maxDescriptionLength}
+                    dataError={"Не менее " + minDescriptionLength + " символов"}
+                />
+                <Input
                     id="address"
                     type="text"
                     labelText="Ваш адресс"
                     value={address}
                     onChangeHandler={addressHandler}
-                    data-length={addressLength}
+                    maxLength={maxAddressLength}
+                    dataError={"Не менее " + minAddressLength + " символов"}
                 />
-                <InputTypeText
+                <Input
                     id="price"
                     type="number"
                     labelText="Цена"
                     value={price}
                     onChangeHandler={priceHandler}
                 />
-                <InputTypeText
+                <Input
                     id="tags"
                     type="text"
                     labelText="Теги"
@@ -130,4 +169,4 @@ const AddAdv = (props: IProps) => {
     )
 }
 
-export default connect(null, mapDispatchToProps)(React.memo(AddAdv))
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(AddAdv))

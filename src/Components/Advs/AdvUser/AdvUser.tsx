@@ -1,9 +1,9 @@
 import React from 'react'
 import style from './style.module.scss'
 import { Link } from 'react-router-dom';
-import { IAdv } from '../../../../store/advs/types'
+import { IAdv } from '../../../store/advs/types'
 
-const Adv = (props: IAdv) => {
+const AdvUser = (props: IAdv) => {
 
     return (
 
@@ -19,11 +19,12 @@ const Adv = (props: IAdv) => {
                         <Link to={`/advcard/ad-${props._id}`}>
                             <h4>{props.title}</h4>
                         </Link>
+                        <span className={style.price}>{props.price}</span>
+                        <span className={style.data}>{props.createdAt}</span>
                         <span className={style.address}>{props.address}</span>
                     </div>
-                    <div className={style.priceWrapper}>
-                        <span className={style.price}>{props.price} грн.</span>
-                        <span className={style.data}>{props.createdAt}</span>
+                    <div className={style.controlWrapper}>
+                        <Link to={`/adedit-${props._id}`} className="waves-effect waves-light btn">Редактировать</Link>
                     </div>
                 </div>
             </div>
@@ -32,4 +33,4 @@ const Adv = (props: IAdv) => {
     )
 }
 
-export default React.memo(Adv);
+export default React.memo(AdvUser);

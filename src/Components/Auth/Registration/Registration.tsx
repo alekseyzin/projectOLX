@@ -6,8 +6,9 @@ import * as authActions from "../../../store/auth/actions"
 
 import style from './style.module.scss'
 import classnames from 'classnames'
-import InputTypeText from '../FormElements/InputTypeText'
+import Input from '../../FormElements/Input'
 import { IRootState, IRootAction } from '../../../store/rootReducer'
+import {checkEmail, checkLengthInput} from '../../../GlobalFunctions/GlobalFunctions'
 
 const mapStateToProps = (state: IRootState) => ({
     error: state.auth.authData.error
@@ -30,6 +31,8 @@ const Authorization: React.FC<AuthProps> = (props) => {
   const [login, setLogin] = useState('life')
   const [password, setPassword] = useState('lifemr')
 
+  const minPassLength = 5;
+
   React.useEffect(() => {
     return () => {
       props.deleteError()
@@ -38,14 +41,21 @@ const Authorization: React.FC<AuthProps> = (props) => {
 
   const loginHandler = (e: React.FormEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value)
+    checkEmail('login', e.currentTarget.value)
+    
   }
 
   const passwordHandler = (e: React.FormEvent<HTMLInputElement>) => {
     setPassword(e.currentTarget.value)
+    checkLengthInput(e.currentTarget.value, 'password', minPassLength, 0, setPassword)
   }
 
   const submitHandler = (e: React.FormEvent<Element>) => {
     e.preventDefault()
+    const errors = []
+        errors.push(checkEmail('login', login))
+        errors.push(checkLengthInput(password, 'password', minPassLength, 0, setPassword))
+        if (errors.indexOf(false) === -1)
     props.regUser({login, password})
   }
 
@@ -54,19 +64,21 @@ const Authorization: React.FC<AuthProps> = (props) => {
     <div className={classnames("row container", style.wrapper)}>
       <h1 className="center-align">Регистрация</h1>
       <form className="col s6 offset-s3" onSubmit={submitHandler} >
-        <InputTypeText
+        <Input
           id="login"
           type="text"
           labelText="Email"
           value={login}
           onChangeHandler={loginHandler}
+          dataError="Это не похоже на E-mail"
         />
-        <InputTypeText
+        <Input
           id="password"
           type="password"
           labelText="Password"
           value={password}
           onChangeHandler={passwordHandler}
+          dataError={"Не менее " + minPassLength + " символов" }
         />
         {props.error && <div className="card-panel red lighten-3">{props.error}</div>}
         <button className="btn waves-effect waves-light" type="submit" name="action">Submit

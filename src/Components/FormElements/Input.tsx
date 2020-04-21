@@ -7,8 +7,10 @@ interface IProps {
   labelText: string;
   value: string;
   onChangeHandler: (e: React.FormEvent<HTMLInputElement>) => void;
+  onBlurHandler?: (id: string, phones: string) => void
   dataTooltip?: string;
-  dataLength?: number;
+  maxLength?: number;
+  dataError?: string
 }
 
 const InputTypeText = (props: IProps) => {
@@ -19,20 +21,23 @@ const InputTypeText = (props: IProps) => {
   });
 
   return (
+    
     <div className="row">
       <div className="input-field col s12">
         <input
           value={props.value}
           onChange={props.onChangeHandler}
+          onBlur={(e) => props.onBlurHandler && props.onBlurHandler(props.id, e.currentTarget.value)}
           id={props.id}
           type={props.type}
-          className={classnames("validate", (props.dataTooltip ? "tooltipped" : ""))}
+          className={classnames( (props.dataTooltip ? "tooltipped" : ""))}
           data-position="right"
           data-tooltip={props.dataTooltip}
           placeholder=""
-          data-length={props.dataLength}
+          data-length={props.maxLength}
         />
         <label htmlFor={props.id} className="active">{props.labelText}</label>
+        <span className="helper-text" data-error={props.dataError} data-success="Годится ягодица"></span>
       </div>
     </div>
   )

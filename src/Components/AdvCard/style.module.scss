@@ -8,11 +8,11 @@
         border-radius: 3px;
     
         .topPhoto{
-            max-height: 450px;
             text-align: center;
     
             img{
                 max-width: 100%;
+                max-height: 450px;
                 object-fit: cover;
                 display: inline-block;
             }

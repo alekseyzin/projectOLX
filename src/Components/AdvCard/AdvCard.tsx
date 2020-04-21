@@ -38,8 +38,12 @@ const AdCard = (props: IProps) => {
     }
   }, [])
 
-  const elems = document.querySelectorAll('.materialboxed');
-  M.Materialbox.init(elems, { inDuration: 0, outDuration: 0 });
+  useEffect(()=>{
+    const elems = document.querySelectorAll('.materialboxed');
+    M.Materialbox.init(elems, { inDuration: 0, outDuration: 0 });
+  },[props.advCard.images[1]])
+
+  console.log(props.advCard)
 
   if (props.isAdv) {
     return (
@@ -47,7 +51,7 @@ const AdCard = (props: IProps) => {
         <div className="col m9 s12">
           <div className={style.contentWrapper}>
             <div className={style.topPhoto}>
-              <img alt={props.advCard.title} className="materialboxed" src={props.advCard.images[0]} />
+              <img alt={props.advCard.title} className="materialboxed" src={props.advCard.images[0]?.url} />
             </div>
             <div className={style.content}>
               <h1>{props.advCard.title}</h1>
@@ -55,6 +59,17 @@ const AdCard = (props: IProps) => {
               <span className={style.data}>{props.advCard.advDate}</span>
               <p className={style.description}>{props.advCard.description}</p>
             </div>
+            {
+              props.advCard.images.map((img, index) => {
+                if (index > 0) {
+                  return (
+                    <div className={style.topPhoto} key={img._id}>
+                      <img alt={props.advCard.title} className="materialboxed" src={img.url} />
+                    </div>
+                  )
+                }
+              })
+            }
           </div>
         </div>
         <div className="col m3 s12">

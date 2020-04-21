@@ -1,4 +1,4 @@
-import {createAsyncAction} from 'typesafe-actions'
+import {createAsyncAction, createAction} from 'typesafe-actions'
 import {IAdv} from './types'
 
 export const addAdv = createAsyncAction (
@@ -6,3 +6,7 @@ export const addAdv = createAsyncAction (
     "addAdv/ADD_ADV_SUCCESS",
     "addAdv/ADD_ADV_FAILURE"
 )<IAdv, any, any>()
+
+export const checkUserData = createAction (
+    "addAdv/CHECK_USER_DATA"
+)()

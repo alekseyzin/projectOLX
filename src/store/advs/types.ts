@@ -17,14 +17,21 @@ export type IAdvsAction = ActionType<typeof actions>
 // }
 
 export interface IAdv {
-    _id: string,
-    title: string,
-    price: string | null,
-    images: string,
-    address: string,
-    createdAt: string,
+    readonly _id: string,
+    readonly title: string,
+    readonly price: string | null,
+    readonly images: string,
+    readonly address: string,
+    readonly createdAt: string,
 }
 
 export interface IState {
-    advsData: IAdv[]
+    readonly advsData: IAdv[]
+    readonly pagesCount: number
+}
+
+export interface IAdvsPayload {
+    type: string,
+    page: number,
+    quest: string | null
 }

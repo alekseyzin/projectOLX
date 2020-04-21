@@ -3,7 +3,7 @@ import {authUserSaga, regUserSaga} from './auth/sagas'
 import {getUserData, setUserData, setAvatar} from './profile/sagas'
 import {getAdvsData} from './advs/sagas'
 import {getAdvCardData} from './adv/sagas'
-import {setAdvSaga} from './addAdv/sagas'
+import {setAdvSaga, checkUserDataSaga} from './addAdv/sagas'
 
 export default function* rootSaga () {
     yield all([
@@ -15,5 +15,6 @@ export default function* rootSaga () {
         spawn(getAdvsData),
         spawn(getAdvCardData),
         spawn(setAdvSaga),
+        spawn(checkUserDataSaga),
     ])
 }

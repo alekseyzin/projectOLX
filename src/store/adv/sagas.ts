@@ -1,6 +1,6 @@
 import { take, put, call, select } from "redux-saga/effects"
 import * as actions from './actions'
-import { IImages, IAdvcardData } from './types'
+import {  IAdvcardData } from './types'
 
 export function* getAdvCardData() {
     while (true) {
@@ -9,6 +9,7 @@ export function* getAdvCardData() {
         try {
             const result = yield call(queryAdvData, payload, jwtToken)
             const advData:IAdvcardData = {
+                _id: result._id,
                 advDate: formatDate(result.owner.createdAt),
                 title: result.title || "Я не умею писать заголовки",
                 description: result.description || "У меня плохой словарный запас",
@@ -20,7 +21,8 @@ export function* getAdvCardData() {
                 avatar: result.owner.avatar
                     ? `http://marketplace.asmer.fs.a-level.com.ua/${result.owner.avatar.url}`
                     : "https://apollo-ireland.akamaized.net/v1/files/76ojf53mron92-UA/image;s=261x203",
-                images: handlerImages(result.images)
+                images: handlerImages(result.images),
+                tags: result.tags ? result.tags.join(', ') : ""
             }
             yield put(actions.getAdvCard.success(advData))
         } catch (e) {
@@ -49,12 +51,13 @@ const queryAdvData = async (id: string, jwtToken: string) => {
                               owner{nick, phones, createdAt, 
                               avatar{url}
                               },
-                              images{url},
+                              images{url, _id},
                               createdAt,
                               title,
                               description,
                               address,
-                              price
+                              price,
+                              tags
                             }
                           }`,
             variables: { "adId": advQuery }
@@ -69,15 +72,19 @@ function formatDate(date: string): string {
     return new Date(Number(date)).toLocaleDateString()
 }
 
-function handlerImages(images: IImages[]) {
+interface IImages {
+    url: string | null
+    _id: string
+}
 
-    if (images && images[0].url) {
+function handlerImages(images: IImages[]) {
+    if (images && images.length > 0 && images[0].url) {
         let result = [];
         for (let img of images) {
-            img.url && result.push(`http://marketplace.asmer.fs.a-level.com.ua/${img.url}`)
+            img.url && result.push({url: `http://marketplace.asmer.fs.a-level.com.ua/${img.url}`, _id: img._id})
         }
         return result;
     } else {
-        return ["https://apollo-ireland.akamaized.net/v1/files/76ojf53mron92-UA/image;s=261x203"]
+        return [{url: "https://boatparts.com.ua/design/boatparts/images/no_image.png", _id: '1'}]
     }
 }

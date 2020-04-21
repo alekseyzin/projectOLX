@@ -4,7 +4,8 @@ import {ActionType} from 'typesafe-actions'
 export type IAdvCardAction = ActionType<typeof actions>
 
 export interface IImages {
-    url: string | null
+    url: string
+    _id: string
 }
 
 export interface IAdvState {
@@ -13,6 +14,7 @@ export interface IAdvState {
 }
 
 export interface IAdvcardData{
+    readonly _id: string
     readonly advDate: string
     readonly title: string
     readonly description: string
@@ -22,7 +24,8 @@ export interface IAdvcardData{
     readonly phones: string[]
     readonly nick: string
     readonly avatar: string
-    readonly images: string[]
+    readonly images: IImages[]
+    readonly tags: string
 }
 
 

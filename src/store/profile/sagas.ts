@@ -37,6 +37,7 @@ export function* setUserData() {
 export function* setAvatar() {
   while (true) {
     const { payload } = yield take(actions.setAvatar.request)
+    console.log(payload)
     const jwtToken = yield select(state => state.auth.authData.authToken)
     const userId = yield select(state => state.auth.authData.id)
     try {
@@ -49,7 +50,7 @@ export function* setAvatar() {
   }
 }
 
-async function queryUserData(userId: string, jwtToken: string) {
+export async function queryUserData(userId: string, jwtToken: string) {
 
   const userQuery = `[{"_id": "${userId}"}]`
   const data = {

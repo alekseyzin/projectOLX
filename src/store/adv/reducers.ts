@@ -4,6 +4,7 @@ import { IAdvState, IAdvCardAction } from './types'
 
 const initialState: IAdvState = {
     advCardData: {
+        _id: "",
         advDate: "",
         title: "",
         description: "",
@@ -13,7 +14,10 @@ const initialState: IAdvState = {
         phones: [""],
         nick: "",
         avatar: "",
-        images: [""],
+        images: [
+            {url: "", _id: ""}
+        ],
+        tags: "",
     },
     isAdv: true
 }
