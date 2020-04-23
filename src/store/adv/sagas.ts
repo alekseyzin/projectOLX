@@ -10,6 +10,7 @@ export function* getAdvCardData() {
             const result = yield call(queryAdvData, payload, jwtToken)
             const advData:IAdvcardData = {
                 _id: result._id,
+                userId: result.owner._id,
                 advDate: formatDate(result.owner.createdAt),
                 title: result.title || "Я не умею писать заголовки",
                 description: result.description || "У меня плохой словарный запас",
@@ -48,9 +49,7 @@ const queryAdvData = async (id: string, jwtToken: string) => {
                             AdFindOne(query: $adId) {
                               _id,
                               createdAt,
-                              owner{nick, phones, createdAt, 
-                              avatar{url}
-                              },
+                              owner{_id, nick, phones, createdAt, avatar{url}},
                               images{url, _id},
                               createdAt,
                               title,
@@ -85,6 +84,7 @@ function handlerImages(images: IImages[]) {
         }
         return result;
     } else {
-        return [{url: "https://boatparts.com.ua/design/boatparts/images/no_image.png", _id: '1'}]
+        // return [{url: "https://boatparts.com.ua/design/boatparts/images/no_image.png", _id: '1'}]
+        return []
     }
 }

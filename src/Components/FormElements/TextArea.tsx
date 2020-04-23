@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classnames from 'classnames'
+import './style.scss'
+
 
 interface IProps {
   id: string;
@@ -13,15 +15,16 @@ interface IProps {
 
 const InputTypeText = (props: IProps) => {
 
+
   return (
-    
+
     <div className="row">
       <div className="input-field col s12">
         <textarea
           value={props.value}
           onChange={props.onChangeHandler}
           id={props.id}
-          className={classnames("materialize-textarea", (props.dataTooltip ? "tooltipped" : ""))}
+          className={classnames("materialize-textarea changeTextarea", (props.dataTooltip ? "tooltipped" : ""))}
           data-position="right"
           data-tooltip={props.dataTooltip}
           placeholder=""

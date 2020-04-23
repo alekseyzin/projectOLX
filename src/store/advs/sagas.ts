@@ -11,6 +11,7 @@ export function* getAdvsData() {
         const { payload: { type, page, quest } } = yield take(actions.getAdvs.request)
         const jwtToken = yield select(state => state.auth.authData.authToken)
         const userId = yield select(state => state.auth.authData.id)
+        debugger
         //temp
         const limit = 5
         //temp

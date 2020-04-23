@@ -48,7 +48,7 @@ const AddAdv = (props: IProps) => {
     const minTitleLength = 10;
     const maxTitleLength = 70;
     const minDescriptionLength = 10;
-    const maxDescriptionLength = 300;
+    const maxDescriptionLength = 1000;
     const minAddressLength = 4;
     const maxAddressLength = 30;
 
@@ -76,8 +76,6 @@ const AddAdv = (props: IProps) => {
 
     const submitHandler = (e: React.FormEvent<Element>) => {
         const refPhotos = [refPhoto1, refPhoto2, refPhoto3]
-        // console.log('refPhoto1 ', refPhoto1)
-        // console.log('refPhoto2 ', refPhoto2)
         const errors = []
         errors.push(checkLengthInput(title, 'title', minTitleLength, maxTitleLength, setTitle))
         errors.push(checkLengthInput(description, 'description', minDescriptionLength, maxDescriptionLength, setDescription))

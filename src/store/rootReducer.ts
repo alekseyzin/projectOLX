@@ -12,6 +12,8 @@ import advsReducer from './advs/reducers'
 import {IAdvCardAction} from './adv/types'
 import advCardReducer from './adv/reducers'
 import {AddAdvAction} from './addAdv/types'
+import messageReducer from './message/reducers'
+import {TMessageAction} from './message/types'
 
 
 
@@ -20,10 +22,12 @@ const rootReducer = combineReducers({
     auth: authReducer,
     profile: profileReducer,
     advs: advsReducer,
-    advCard: advCardReducer
+    advCard: advCardReducer,
+    message: messageReducer,
 })
 
 export type IRootState = StateType<typeof rootReducer>
-export type IRootAction = AuthAction | EmptyAction<string> | IProfileAction | IAdvsAction | IAdvCardAction | AddAdvAction
+export type IRootAction = AuthAction | EmptyAction<string> | IProfileAction 
+    | IAdvsAction | IAdvCardAction | AddAdvAction | TMessageAction
 
 export default rootReducer;

@@ -12,6 +12,7 @@ import AdvCard from './Components/AdvCard/AdvCard'
 import NotFound from './Components/NotFound/NotFound';
 import AddAdv from './Components/AddAdv/AddAdv';
 import AdvSuccess from './Components/AddAdv/AdvSuccess/AdvSuccess';
+import MyMessages from './Components/MyMessages/MyMessages';
 
 const mapStateToProps = (state: IRootState) => ({
   authToken: state.auth.authData.authToken
@@ -27,23 +28,30 @@ const Routes: React.FC<IProps> = (props) => {
       {props.authToken && <Redirect exact from="/registration" to="/" />}
 
       <Route exact path="/" component={Advs} />
-      <Route path="/page-:id" component={Advs} />
-      <Route path="/q-:q" component={Advs} />
-      <Route path="/q-:q/page-:id" component={Advs} />
+      <Route exact path="/q-:q/page-:id" component={Advs} />
+      <Route exact path="/page-:id" component={Advs} />
+      <Route exact path="/q-:q" component={Advs} />
 
       <Route exact path="/myadvs" component={Advs} />
-      <Route path="/myadvs/page-:id" component={Advs} />
-      <Route path="/myadvs/q-:q" component={Advs} />
-      <Route path="/myadvs/q-:q/page-:id" component={Advs} />
+      <Route exact path="/myadvs/q-:q/page-:id" component={Advs} />
+      <Route exact path="/myadvs/page-:id" component={Advs} />
+      <Route exact path="/myadvs/q-:q" component={Advs} />
 
       <Route exact path="/authorization" component={Authorization} />
+
       <Route exact path="/registration" component={Registration} />
-      <Route exact path="/profile" component={Profile} />
       <Route exact path="/regsuccess" component={RegSuccess} />
+
+      <Route exact path="/profile" component={Profile} />
+
+      <Route exact path="/mymessages" component={MyMessages} />
+
       <Route path="/advcard/ad-:id" component={AdvCard} />
+
       <Route exact path="/addadv" component={AddAdv} />
       <Route path="/adedit-:id" component={AddAdv} />
-      <Route exact path="/advsaccess" component={AdvSuccess} /> 
+      <Route exact path="/advsaccess" component={AdvSuccess} />
+       
       <Route path="/" component={NotFound} />
     </Switch>
   );

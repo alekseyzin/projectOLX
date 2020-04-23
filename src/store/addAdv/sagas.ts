@@ -5,18 +5,18 @@ import { queryUserData } from '../profile/sagas'
 
 export function* setAdvSaga() {
   while (true) {
-    const { payload } = yield take(actions.addAdv.request)
+    const { payload:{title, description, price, address, tags, oldImages, refPhotos, _id} } = yield take(actions.addAdv.request)
     const jwtToken = yield select(state => state.auth.authData.authToken)
     try {
       const idPhotos = [];
       for (let i = 0; i < 3; i++) {
-        let imgId = payload.oldImages[i]?._id ? payload.oldImages[i]._id : null
-        if (payload.refPhotos[i].current?.elements[0].files.length) {
-          imgId = yield call(upLoadPhoto, jwtToken, new FormData(payload.refPhotos[i].current))
+        let imgId = oldImages[i]?._id ? oldImages[i]._id : null
+        if (refPhotos[i].current?.elements[0].files.length) {
+          imgId = yield call(upLoadPhoto, jwtToken, new FormData(refPhotos[i].current))
         }
         idPhotos.push({ _id: imgId })
       }
-      const result = yield call(addAdv, jwtToken, payload.title, payload.description, payload.address, payload.price, payload.tags, idPhotos, payload._id)
+      const result = yield call(addAdv, jwtToken, title, description, address, price, tags, idPhotos, _id)
       if (result) yield put(push('/advsaccess'))
     } catch (e) {
       console.error(e)
@@ -44,6 +44,7 @@ interface IPhoto {
 
 const addAdv = async (jwtToken: string, title: string, description: string, address: string, price: string, tags: string, idPhotos: IPhoto[], _id: string | null) => {
   const arrTags = tags.replace(/\s+/g, '').split(',')
+  debugger
   const variables = { "title": title, "description": description, "address": address, "price": Number(price), "tags": arrTags, "images": idPhotos, "_id": _id }
   if (!_id) delete variables._id
   const data = {
@@ -66,9 +67,10 @@ const addAdv = async (jwtToken: string, title: string, description: string, addr
   return fetch("http://marketplace.asmer.fs.a-level.com.ua/graphql", data)
     .then(response => response.json())
     .then(data => data.data.AdUpsert._id)
+    // .then(data => console.log(data))
 }
 
-async function upLoadPhoto(jwtToken: string, body: any) {
+export async function upLoadPhoto(jwtToken: string, body: any) {
   return fetch('http://marketplace.asmer.fs.a-level.com.ua/upload', {
     method: "POST",
     headers: jwtToken ? { Authorization: 'Bearer ' + jwtToken } : {},

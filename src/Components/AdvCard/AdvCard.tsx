@@ -7,6 +7,7 @@ import { IRootAction, IRootState } from '../../store/rootReducer'
 import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
 import NotFound from '../NotFound/NotFound'
+import Message from './AddMessage/AddMessage'
 
 const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) =>
   bindActionCreators(
@@ -43,7 +44,10 @@ const AdCard = (props: IProps) => {
     M.Materialbox.init(elems, { inDuration: 0, outDuration: 0 });
   },[props.advCard.images[1]])
 
-  console.log(props.advCard)
+  const elems = document.querySelectorAll('.modal');
+  M.Modal.init(elems, {});
+
+  const img = props.advCard.images[0]?.url || "https://boatparts.com.ua/design/boatparts/images/no_image.png"
 
   if (props.isAdv) {
     return (
@@ -51,7 +55,7 @@ const AdCard = (props: IProps) => {
         <div className="col m9 s12">
           <div className={style.contentWrapper}>
             <div className={style.topPhoto}>
-              <img alt={props.advCard.title} className="materialboxed" src={props.advCard.images[0]?.url} />
+              <img alt={props.advCard.title} className="materialboxed" src={img} />
             </div>
             <div className={style.content}>
               <h1>{props.advCard.title}</h1>
@@ -84,9 +88,11 @@ const AdCard = (props: IProps) => {
               <img alt={props.advCard.nick} src={props.advCard.avatar} />
               <span className={style.nick}>{props.advCard.nick}</span>
               <span className={style.userData}>Регистрация: {props.advCard.userDate}</span>
+              <a className={classnames("waves-light btn modal-trigger", style.messageBtn)} href="#modal1">Написать</a>
             </div>
           </div>
         </div>
+        <Message nick={props.advCard.nick} userId={props.advCard.userId}/>
       </div>
     )
   } else {

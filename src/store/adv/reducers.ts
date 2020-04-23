@@ -5,6 +5,7 @@ import { IAdvState, IAdvCardAction } from './types'
 const initialState: IAdvState = {
     advCardData: {
         _id: "",
+        userId: "",
         advDate: "",
         title: "",
         description: "",

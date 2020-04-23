@@ -56,6 +56,7 @@ const Header: React.FC<IProps> = (props) => {
             <ul id="dropdown1" className={classnames(style.dropdownPosition, "dropdown-content black-text")}>
                 <li><Link to="/profile">Профиль</Link></li>
                 <li><Link to="/myadvs">Мои объявления</Link></li>
+                <li><Link to="/mymessages">Cообщения</Link></li>
                 <li className="divider"></li>
                 <li><Link to='/authorization' className="indigo-text accent-4" onClick={() => props.unAuthUser()}>Выход</Link></li>
             </ul>

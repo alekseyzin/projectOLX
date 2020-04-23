@@ -15,6 +15,7 @@ export interface IAdvState {
 
 export interface IAdvcardData{
     readonly _id: string
+    readonly userId: string
     readonly advDate: string
     readonly title: string
     readonly description: string

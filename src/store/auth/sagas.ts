@@ -4,16 +4,13 @@ import jwtDecode from 'jwt-decode'
 import * as actions from './actions'
 import { push } from 'connected-react-router'
 
-export function* authUserSaga() {
-
-    
+export function* authUserSaga() {   
     if (localStorage.authToken) {
         const jwtData: any = jwtDecode(localStorage.authToken)
         const jwtToken = localStorage.authToken
         const id = jwtData.sub?.id
         const login = jwtData.sub?.login
         yield put(actions.authUser.success({ jwtToken, id, login }))
-
     }
     while (true) {
         const { payload } = yield take(actions.authUser.request)
