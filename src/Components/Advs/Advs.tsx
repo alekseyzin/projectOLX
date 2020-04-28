@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) =>
     bindActionCreators(
         {
             getAdvs: actions.getAdvs.request,
-            deleteAdvs: actions.deleteAdvs
+            // deleteAdvs: actions.deleteAdvs
         },
         dispatch
     )
@@ -39,62 +39,60 @@ const AdvsBlock = (props: IProps) => {
         const type = isMyAdvs ? 'myadvs' : 'advs'
         props.getAdvs({ type, page, quest })
         return () => {
-            props.deleteAdvs()
+            // props.deleteAdvs()
         }
     }, [props.match])
 
     const quest = props.match.params.q || null
     const page = props.match.params.id ? Number(props.match.params.id) : 1
-    // debugger;
     const isMyAdvs = props.match.path.includes('myadvs')
     const pathAdvs = quest ? `/q-${quest}` : ''
     const pathMyAdvs = quest ? `/myadvs/q-${quest}` : '/myadvs'
     let h1 = isMyAdvs ? 'Мои объявления' : 'Лудший Сакес в твоей жизни!'
     quest && (h1 = `Поиск: ${quest}`)
 
-    // if (props.advsData.length) {
-    return (
-        <div>
-            <h1>{h1}</h1>
-            <Search isMyAdvs={isMyAdvs} />
-            <div className="row">
-                {props.advsData.length
-                    ? props.advsData.map((d: IAdv) => {
-                        if (isMyAdvs) {
-                            return <AdvUser key={d._id}
-                                _id={d._id}
-                                title={d.title}
-                                address={d.address}
-                                createdAt={d.createdAt}
-                                price={d.price}
-                                images={d.images}
-                            />
-                        } else {
-                            return <Adv key={d._id}
-                                _id={d._id}
-                                title={d.title}
-                                address={d.address}
-                                createdAt={d.createdAt}
-                                price={d.price}
-                                images={d.images}
-                            />
-                        }
-                    })
-                    : quest ? <div className="center-align">По вашему запросу ничего не найдено</div> : <Preloader />
-                }
+    // if (typeof props.advsData === 'object') {
+        return (
+            <div>
+                <h1>{h1}</h1>
+                <Search isMyAdvs={isMyAdvs} />
+                <div className="row">
+                    {props.advsData.length
+                        ? props.advsData.map((d: IAdv) => {
+                            if (isMyAdvs) {
+                                return <AdvUser key={d._id}
+                                    _id={d._id}
+                                    title={d.title}
+                                    address={d.address}
+                                    createdAt={d.createdAt}
+                                    price={d.price}
+                                    images={d.images}
+                                />
+                            } else {
+                                return <Adv key={d._id}
+                                    _id={d._id}
+                                    title={d.title}
+                                    address={d.address}
+                                    createdAt={d.createdAt}
+                                    price={d.price}
+                                    images={d.images}
+                                />
+                            }
+                        })
+                        : <div className="center-align">По вашему запросу ничего не найдено</div>
+                        // : quest ? <div className="center-align">По вашему запросу ничего не найдено</div> : <Preloader />
+                    }
+                </div>
+                <Pagination
+                    pagesCount={props.pagesCount}
+                    currentPage={page}
+                    path={isMyAdvs ? pathMyAdvs : pathAdvs}
+                />
             </div>
-            <Pagination
-                pagesCount={props.pagesCount}
-                currentPage={page}
-                path={isMyAdvs ? pathMyAdvs : pathAdvs}
-            />
-        </div>
-    )
-    //     } else {
-    //         return (
-    //             <Preloader />
-    //         )
-    //     }
+        )
+    // } else {
+    //     return <Preloader />
+    // }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(AdvsBlock));

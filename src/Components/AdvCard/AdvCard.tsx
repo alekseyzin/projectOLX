@@ -8,6 +8,7 @@ import { connect } from 'react-redux'
 import { RouteComponentProps } from 'react-router-dom'
 import NotFound from '../NotFound/NotFound'
 import Message from './AddMessage/AddMessage'
+import Comments from './Comments/Comments'
 
 const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) =>
   bindActionCreators(
@@ -26,11 +27,11 @@ const mapStateToProps = (state: IRootState) => (
 
 type TParams = { id: string };
 
-type IProps = ReturnType<typeof mapDispatchToProps>
+type TProps = ReturnType<typeof mapDispatchToProps>
   & ReturnType<typeof mapStateToProps>
   & RouteComponentProps<TParams>
 
-const AdCard = (props: IProps) => {
+const AdCard = (props: TProps) => {
 
   useEffect(() => {
     props.getAdvCard(props.match.params.id)
@@ -63,6 +64,7 @@ const AdCard = (props: IProps) => {
               <span className={style.data}>{props.advCard.advDate}</span>
               <p className={style.description}>{props.advCard.description}</p>
             </div>
+            <Comments idAdv={props.match.params.id} />
             {
               props.advCard.images.map((img, index) => {
                 if (index > 0) {

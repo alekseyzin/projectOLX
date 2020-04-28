@@ -1,0 +1,14 @@
+.commentsWrapper {
+    padding:  0 20px 20px;
+
+    h2{
+        margin: 0;
+        font-size: 18px;
+    }
+
+    .comments{
+        ul>li>ul>li {
+            margin-left: 20px;
+        }
+    }
+}

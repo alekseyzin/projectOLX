@@ -5,6 +5,7 @@ import {getAdvsData} from './advs/sagas'
 import {getAdvCardData} from './adv/sagas'
 import {setAdvSaga, checkUserDataSaga} from './addAdv/sagas'
 import {setMessageSaga, getMessageSaga} from './message/sagas'
+import {getCommentsSaga} from './comments/sagas'
 
 export default function* rootSaga () {
     yield all([
@@ -19,5 +20,6 @@ export default function* rootSaga () {
         spawn(checkUserDataSaga),
         spawn(setMessageSaga),
         spawn(getMessageSaga),
+        spawn(getCommentsSaga),
     ])
 }

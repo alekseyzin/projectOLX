@@ -1,5 +1,5 @@
 import {createAsyncAction, createAction} from 'typesafe-actions'
-import {IMessagePayload} from './types'
+import {IMessagePayload, IPageData, IPageNumber} from './types'
 
 export const setMessage = createAsyncAction(
     "message/SET_MESSAGE_REQUEST",
@@ -15,4 +15,4 @@ export const getMessages = createAsyncAction(
     "message/GET_MESSAGE_REQUEST",
     "message/GET_MESSAGE_SUCCESS",
     "message/GET_MESSAGE_FAILURE",
-)<void, any, string>()
+)<IPageNumber, IPageData, string>()

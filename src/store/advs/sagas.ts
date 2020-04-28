@@ -11,15 +11,14 @@ export function* getAdvsData() {
         const { payload: { type, page, quest } } = yield take(actions.getAdvs.request)
         const jwtToken = yield select(state => state.auth.authData.authToken)
         const userId = yield select(state => state.auth.authData.id)
-        debugger
         //temp
         const limit = 5
         //temp
-        if (jwtToken) {
+        // if (jwtToken) {
             try {
                 let filter:IFilter = (type === 'myadvs') ? { ___owner: userId } : {}
                 quest && (filter.$or = [{title: `/${quest}/`}, {description:`/${quest}/`} ])
-                let queryCountAdvs: any = [filter]
+                let queryCountAdvs: IFilter[] = [filter]
 
                 const advsCount = yield call(queryAdvsCount, jwtToken, queryCountAdvs)
                 const pagesCount = Math.ceil(advsCount / limit)
@@ -27,6 +26,7 @@ export function* getAdvsData() {
 
                 let queryAdv: any = [filter, { sort: [{ _id: -1 }], limit: [limit], skip: [checkPage * limit] }]
                 const result = yield call(queryAdvsData, jwtToken, queryAdv)
+
                 const advsData = yield result.map((d: any) => {
                     return {
                         ...d,
@@ -43,7 +43,7 @@ export function* getAdvsData() {
             } catch (e) {
                 console.error(e)
             }
-        }
+        // }
 
     }
 }

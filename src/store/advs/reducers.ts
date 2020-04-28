@@ -10,17 +10,16 @@ const initialState: IState = {
 export default (state: IState = initialState, action: IAdvsAction): IState => {
     switch (action.type) {
         case getType(actions.getAdvs.success):
-            // console.log('reducer: ', action.payload)
             return {
                 ...state,
                 advsData: [
-                    ...state.advsData,
+                    // ...state.advsData,
                     ...action.payload.advsData
                 ],
                 pagesCount: action.payload.pagesCount
             };
-        case getType(actions.deleteAdvs):
-            return { ...state, advsData: [] }
+        // case getType(actions.deleteAdvs):
+        //     return { ...state, advsData: [] }
         default:
             return state;
     }

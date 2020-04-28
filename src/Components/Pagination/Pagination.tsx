@@ -10,6 +10,8 @@ interface IProps {
 
 const Pagination = (props: IProps) => {
 
+    window.scrollTo(0, 0)
+
     const pagination = []
     if (props.pagesCount > 2) {
         props.currentPage > 5 && pagination.push(<li key="1">...</li>)

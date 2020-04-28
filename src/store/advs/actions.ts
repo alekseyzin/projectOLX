@@ -7,6 +7,6 @@ export const getAdvs = createAsyncAction(
     "advs/GET_ADVS_FAILURE",
 )<IAdvsPayload, IState, string>()
 
-export const deleteAdvs = createAction(
-    "advs/DFLETE_ADVS"
-)()
+// export const deleteAdvs = createAction(
+//     "advs/DFLETE_ADVS"
+// )()

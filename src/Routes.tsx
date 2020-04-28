@@ -26,6 +26,7 @@ const Routes: React.FC<IProps> = (props) => {
     <Switch>
       {props.authToken && <Redirect exact from="/authorization" to="/" />}
       {props.authToken && <Redirect exact from="/registration" to="/" />}
+      {props.authToken || <Redirect exact from="/" to="/authorization" />}
 
       <Route exact path="/" component={Advs} />
       <Route exact path="/q-:q/page-:id" component={Advs} />
@@ -45,6 +46,7 @@ const Routes: React.FC<IProps> = (props) => {
       <Route exact path="/profile" component={Profile} />
 
       <Route exact path="/mymessages" component={MyMessages} />
+      <Route exact path="/mymessages/page-:id" component={MyMessages} />
 
       <Route path="/advcard/ad-:id" component={AdvCard} />
 
