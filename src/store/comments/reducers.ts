@@ -9,7 +9,6 @@ const initialState: ICommentsState = {
 export default (state: ICommentsState = initialState, action: TCommentsAction): ICommentsState => {
     switch (action.type) {
         case getType(actions.getComments.success):
-            console.log(action.payload)
             return {...state, commentsData: action.payload}
         default:
             return state

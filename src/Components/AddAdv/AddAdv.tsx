@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect} from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Input from '../FormElements/Input'
 import * as actionsAddAdv from '../../store/addAdv/actions'
 import * as actionsAdv from '../../store/adv/actions'
@@ -10,6 +10,7 @@ import style from './style.module.scss'
 import TextArea from '../FormElements/TextArea'
 import { checkLengthInput } from '../../GlobalFunctions/GlobalFunctions'
 import { RouteComponentProps } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) =>
     bindActionCreators(
@@ -22,7 +23,7 @@ const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) =>
         }, dispatch
     )
 
-const mapStateToProps = (state:IRootState) => (
+const mapStateToProps = (state: IRootState) => (
     {
         advData: state.advCard.advCardData
     }
@@ -52,27 +53,25 @@ const AddAdv = (props: IProps) => {
     const minAddressLength = 4;
     const maxAddressLength = 30;
 
-    
-
     useEffect(() => {
         const textNeedCount = document.querySelectorAll('#title, #description, #address');
         M.CharacterCounter.init(textNeedCount);
         props.checkUserData() //Проверяем заполнены ли юзера телефон и ник, если нет то редирект в профиль
         props.match.params.id && props.getAdvData(props.match.params.id) // если редактирование то подгружаем данные по объяве
-        return ()=> {props.deleteAdvData()}
+        return () => { props.deleteAdvData() }
     }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         setTitle(props.advData.title)
         setDescription(props.advData.description)
         setAddress(props.advData.address)
         setPrice((parseInt(props.advData.price, 10)).toString())
         setTags(props.advData.tags)
-    },[props.advData])
+    }, [props.advData])
 
-    useEffect(()=>{
+    useEffect(() => {
         !props.match.params.id && props.deleteAdvData() // удаляем стейт если с редактирования уходим в создание
-    },[ props.match.params.id])
+    }, [props.match.params.id])
 
     const submitHandler = (e: React.FormEvent<Element>) => {
         const refPhotos = [refPhoto1, refPhoto2, refPhoto3]
@@ -80,7 +79,7 @@ const AddAdv = (props: IProps) => {
         errors.push(checkLengthInput(title, 'title', minTitleLength, maxTitleLength, setTitle))
         errors.push(checkLengthInput(description, 'description', minDescriptionLength, maxDescriptionLength, setDescription))
         errors.push(checkLengthInput(address, 'address', minAddressLength, maxAddressLength, setAddress))
-        if (errors.indexOf(false) === -1){
+        if (errors.indexOf(false) === -1) {
             const oldImages = props.advData.images ? props.advData.images : null
             const _id = props.advData._id ? props.advData._id : null
             props.addAdv({ title, description, address, price, tags, refPhotos, oldImages, _id })
@@ -110,11 +109,15 @@ const AddAdv = (props: IProps) => {
 
     return (
         <div className="row">
+            <Helmet>
+                <title>Разместить объявление - Сакес</title>
+                <meta name="description" content="Форма создания объявления" />
+            </Helmet>
             <h1 className="center-align">Разместить объявление на Сакесе</h1>
             <div className={style.photoWrapper}>
-                <Photo id="photo1" refPhoto={refPhoto1} src={props.advData.images[0]?.url || ''}/>
-                <Photo id="photo2" refPhoto={refPhoto2} src={props.advData.images[1]?.url || ''}/>
-                <Photo id="photo3" refPhoto={refPhoto3} src={props.advData.images[2]?.url || ''}/>
+                <Photo id="photo1" refPhoto={refPhoto1} src={props.advData.images[0]?.url || ''} />
+                <Photo id="photo2" refPhoto={refPhoto2} src={props.advData.images[1]?.url || ''} />
+                <Photo id="photo3" refPhoto={refPhoto3} src={props.advData.images[2]?.url || ''} />
             </div>
             <form className="col s12 m6 offset-m3" onSubmit={submitHandler} >
                 <Input

@@ -35,3 +35,19 @@ export interface IPageData {
 export interface IPageNumber {
     page: number
 }
+
+export type TQueryMessage = Array<IMessageFilter | IMessageSortPos>
+
+export interface IMessageFilter {
+    "to._id": number
+}
+
+interface IMessageSortPos {
+    sort: IMessageSort[]
+    limit: Array<number>
+    skip: Array<number>
+}
+
+interface IMessageSort {
+    _id: number
+}

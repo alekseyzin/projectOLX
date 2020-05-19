@@ -3,19 +3,6 @@ import {ActionType} from 'typesafe-actions'
 
 export type IAdvsAction = ActionType<typeof actions>
 
-// export interface IImages {
-//     url: string | null
-// }
-
-// export interface IAdvData {
-//     _id: string,
-//     title: string,
-//     price: string,
-//     images: IImages[] | null,
-//     address: string,
-//     createdAt: string,
-// }
-
 export interface IAdv {
     readonly _id: string,
     readonly title: string,
@@ -28,10 +15,65 @@ export interface IAdv {
 export interface IState {
     readonly advsData: IAdv[]
     readonly pagesCount: number
+    readonly advsLimit: number
+    readonly sortType: string
+    readonly isFetching: boolean
 }
 
 export interface IAdvsPayload {
     type: string,
     page: number,
     quest: string | null
+}
+
+export interface IGetAdvsSuccess {
+    readonly advsData: IAdv[]
+    readonly pagesCount: number
+}
+
+export interface IsortArr {
+    id: number
+    text: string
+    value: string
+}
+
+export interface ISort {
+    _id?: number
+    price?: number
+}
+
+export type TAdvsData = Array<IFilter | ISortPos>
+
+export interface IFilter {
+    ___owner?: string
+    $or?: Array<ITitle | IDescription>
+}
+
+interface ITitle {
+    title: string
+}
+
+interface IDescription {
+    description: string
+}
+
+interface ISortPos {
+    sort: ISort[]
+    limit: Array<number>
+    skip: Array<number>
+}
+
+export type TGetCommentQuery = Array<IFilterComments | ISortPosComments>
+
+interface IFilterComments {
+    "ad._id": number
+    answerTo: null
+} 
+
+interface ISortPosComments {
+    sort: IId[]
+}
+
+interface IId {
+    _id: number
 }

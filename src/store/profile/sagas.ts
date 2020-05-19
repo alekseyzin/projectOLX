@@ -37,7 +37,6 @@ export function* setUserData() {
 export function* setAvatar() {
   while (true) {
     const { payload } = yield take(actions.setAvatar.request)
-    console.log(payload)
     const jwtToken = yield select(state => state.auth.authData.authToken)
     const userId = yield select(state => state.auth.authData.id)
     try {
@@ -110,7 +109,7 @@ async function mutationUserData(userId: string, jwtToken: string, login: string,
     .then(data => data.data.UserUpsert._id)
 }
 
-async function upLoadAvatar(jwtToken: string, body: any) {
+async function upLoadAvatar(jwtToken: string, body: FormData) {
 
   return fetch('http://marketplace.asmer.fs.a-level.com.ua/upload', {
     method: "POST",

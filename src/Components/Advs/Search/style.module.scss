@@ -1,8 +1,27 @@
-.searchIconWrapper{
-    top: 2px!important;
+.searchWrapper{
+    display: flex;
+    position: relative;
+    align-items: center;
 
-    .searchIcon {
-        font-size: 2rem;
+    .searchBtn{
+        margin-right: 10px;
+    
+        .searchLink {
+            
+        }
+    }
+
+    & input[type=text]{
+        padding-right: 20px;
+    }
+
+    .clearBtn{
+        position: absolute;
+        right: 5px;
+        top: 20%;
+        z-index: 10;
     }
 }
+
+
 

@@ -3,11 +3,12 @@ import classnames from 'classnames'
 import { bindActionCreators, Dispatch } from 'redux'
 import { IRootAction, IRootState } from '../../store/rootReducer'
 import * as profileActions from '../../store/profile/actions'
-import {checkLengthInput, checkEmail, checkPhones} from '../../GlobalFunctions/GlobalFunctions'
+import { checkLengthInput, checkEmail, checkPhones } from '../../GlobalFunctions/GlobalFunctions'
 import style from './style.module.scss'
 import Input from '../FormElements/Input'
 import { connect } from 'react-redux'
 import Avatar from './Avatar/Avatar'
+import { Helmet } from 'react-helmet'
 
 
 const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) =>
@@ -69,13 +70,13 @@ const Profile: React.FC<IProps> = (props: IProps) => {
 
   const submitHandler = (e: React.FormEvent<Element>) => {
     const errors = []
-        errors.push(checkEmail('login', login))
-        errors.push(checkLengthInput(nick, 'nick', minNickLength, maxNickLength, setNick))
-        errors.push(checkPhones('tel', phones))
-        errors.push(checkLengthInput(addresses, 'addresses', minAddressLength, maxAddressLength, setAddresses))
-        if (errors.indexOf(false) === -1)
-          props.setProfile({ login, nick, phones, addresses })
-        e.preventDefault()
+    errors.push(checkEmail('login', login))
+    errors.push(checkLengthInput(nick, 'nick', minNickLength, maxNickLength, setNick))
+    errors.push(checkPhones('tel', phones))
+    errors.push(checkLengthInput(addresses, 'addresses', minAddressLength, maxAddressLength, setAddresses))
+    if (errors.indexOf(false) === -1)
+      props.setProfile({ login, nick, phones, addresses })
+    e.preventDefault()
     e.preventDefault()
   }
 
@@ -99,6 +100,10 @@ const Profile: React.FC<IProps> = (props: IProps) => {
 
   return (
     <div className={classnames("row", style.wrapper)}>
+      <Helmet>
+        <title>Профиль - хороший понт дороже денег - Сакес</title>
+        <meta name="description" content="Подмарафеть свой лук" />
+      </Helmet>
       <h1 className="center-align">Профиль</h1>
       <Avatar />
       <form className="col s12 m6 offset-m3" onSubmit={submitHandler} >

@@ -1,23 +1,25 @@
 import React, { useEffect } from 'react'
 import { Dispatch, bindActionCreators } from 'redux'
-import style from './style.module.scss'
 
 import * as actions from '../../store/advs/actions'
 import { IRootAction, IRootState } from '../../store/rootReducer'
 import { connect } from 'react-redux'
 import { IAdv } from '../../store/advs/types'
 import Adv from './Adv/Adv'
-import Preloader from '../Preloader/Preloader'
 import { RouteComponentProps } from 'react-router-dom'
 import Pagination from '../Pagination/Pagination'
 import AdvUser from './AdvUser/AdvUser'
 import Search from './Search/Search'
+import Preloader from '../Preloader/Preloader'
+import Sorting from './Sorting/Sorting'
+import SEO from './SEO/SEO'
 
 const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) =>
     bindActionCreators(
         {
             getAdvs: actions.getAdvs.request,
             // deleteAdvs: actions.deleteAdvs
+            togglePreloader: actions.togglePreloader
         },
         dispatch
     )
@@ -25,23 +27,18 @@ const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) =>
 const mapStateToProps = (state: IRootState) => (
     {
         advsData: state.advs.advsData,
-        pagesCount: state.advs.pagesCount
+        pagesCount: state.advs.pagesCount,
+        advsLimit: state.advs.advsLimit,
+        sortType: state.advs.sortType,
+        isFetching: state.advs.isFetching
     }
 )
 type TParams = { id: string, q: string };
-type IProps = ReturnType<typeof mapDispatchToProps>
+type TProps = ReturnType<typeof mapDispatchToProps>
     & ReturnType<typeof mapStateToProps>
     & RouteComponentProps<TParams>
 
-const AdvsBlock = (props: IProps) => {
-
-    useEffect(() => {
-        const type = isMyAdvs ? 'myadvs' : 'advs'
-        props.getAdvs({ type, page, quest })
-        return () => {
-            // props.deleteAdvs()
-        }
-    }, [props.match])
+const AdvsBlock = (props: TProps) => {
 
     const quest = props.match.params.q || null
     const page = props.match.params.id ? Number(props.match.params.id) : 1
@@ -51,11 +48,27 @@ const AdvsBlock = (props: IProps) => {
     let h1 = isMyAdvs ? 'Мои объявления' : 'Лудший Сакес в твоей жизни!'
     quest && (h1 = `Поиск: ${quest}`)
 
-    // if (typeof props.advsData === 'object') {
+    useEffect(() => {
+        const type = isMyAdvs ? 'myadvs' : 'advs'
+        props.getAdvs({ type, page, quest })
+        // return () => {
+        //     props.deleteAdvs()
+        // }
+    }, [props.match, props.advsLimit, props.sortType])
+
+    // useEffect(() => {
+    //     props.setAdvsLimit(10)
+    // }, [])
+
+    if (!props.isFetching) {
         return (
-            <div>
+            <React.Fragment>
+                <SEO isMyAdvs={isMyAdvs} quest={quest} page={page} />
                 <h1>{h1}</h1>
-                <Search isMyAdvs={isMyAdvs} />
+                <div className="row">
+                    <Search isMyAdvs={isMyAdvs} />
+                    <Sorting />
+                </div>
                 <div className="row">
                     {props.advsData.length
                         ? props.advsData.map((d: IAdv) => {
@@ -80,7 +93,6 @@ const AdvsBlock = (props: IProps) => {
                             }
                         })
                         : <div className="center-align">По вашему запросу ничего не найдено</div>
-                        // : quest ? <div className="center-align">По вашему запросу ничего не найдено</div> : <Preloader />
                     }
                 </div>
                 <Pagination
@@ -88,11 +100,11 @@ const AdvsBlock = (props: IProps) => {
                     currentPage={page}
                     path={isMyAdvs ? pathMyAdvs : pathAdvs}
                 />
-            </div>
+            </React.Fragment>
         )
-    // } else {
-    //     return <Preloader />
-    // }
+    } else {
+        return <Preloader />
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(React.memo(AdvsBlock));

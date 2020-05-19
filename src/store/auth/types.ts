@@ -10,7 +10,7 @@ export interface IAuthData {
     readonly login: string | null;
 }
 
-export interface IAuthState  {
+export interface IAuthState {
     readonly authData: IAuthData
 }
 
@@ -25,4 +25,15 @@ export interface IJwtData {
     jwtToken: string;
     id: string;
     login: string;
+}
+
+export interface IJWTData {
+    iat: number
+    sub: ISub
+}
+
+interface ISub {
+    acl: Array<string>
+    id: string
+    login: string
 }

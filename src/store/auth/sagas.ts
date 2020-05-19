@@ -1,12 +1,15 @@
-import { take, call, put} from 'redux-saga/effects'
+import { take, call, put } from 'redux-saga/effects'
 import jwtDecode from 'jwt-decode'
 
 import * as actions from './actions'
 import { push } from 'connected-react-router'
+import { IJWTData } from './types'
 
-export function* authUserSaga() {   
+
+
+export function* authUserSaga() {
     if (localStorage.authToken) {
-        const jwtData: any = jwtDecode(localStorage.authToken)
+        const jwtData: IJWTData = jwtDecode(localStorage.authToken)
         const jwtToken = localStorage.authToken
         const id = jwtData.sub?.id
         const login = jwtData.sub?.login

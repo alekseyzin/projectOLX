@@ -26,3 +26,8 @@ export interface IComment {
     readonly text: string
     readonly avatar: string
 }
+
+export interface ISetCommentPayload {
+    answerTo: string | null
+    text: string
+}

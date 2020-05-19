@@ -21,4 +21,4 @@ export const setAvatar = createAsyncAction(
     "profile/SET_AVATAR_REQUEST",
     "profile/SET_AVATAR_SUCCESS",
     "profile/SET_AVATAR_FAILURE",
-)<any, IAvatar, string>()
+)<FormData, IAvatar, string>()

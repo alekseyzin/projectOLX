@@ -6,13 +6,14 @@ import style from './style.module.scss'
 import classnames from 'classnames'
 import Input from '../../FormElements/Input'
 import { IRootState, IRootAction } from '../../../store/rootReducer'
-import {checkEmail} from '../../../GlobalFunctions/GlobalFunctions'
+import { checkEmail } from '../../../GlobalFunctions/GlobalFunctions'
+import { Helmet } from 'react-helmet'
 
 const mapStateToProps = (state: IRootState) => ({
-    error: state.auth.authData.error
+  error: state.auth.authData.error
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) => 
+const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) =>
   bindActionCreators(
     {
       authUser: authActions.authUser.request,
@@ -34,7 +35,7 @@ const Authorization: React.FC<AuthProps> = (props) => {
     return () => {
       props.deleteError()
     }
-  },[])
+  }, [])
 
   const loginHandler = (e: React.FormEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value)
@@ -46,12 +47,16 @@ const Authorization: React.FC<AuthProps> = (props) => {
   }
 
   const submitHandler = (e: React.FormEvent<Element>) => {
-    checkEmail('login', login) && props.authUser({login, password})
-    e.preventDefault() 
+    checkEmail('login', login) && props.authUser({ login, password })
+    e.preventDefault()
   }
 
   return (
     <div className={classnames("row container", style.wrapper)}>
+      <Helmet>
+        <title>Авторизация - Сакес</title>
+        <meta name="description" content="Форма автризации на сайте Сакес" />
+      </Helmet>
       <h1 className="center-align">Авторизация</h1>
       <form className="col s6 offset-s3" onSubmit={submitHandler} >
         <Input
@@ -68,7 +73,7 @@ const Authorization: React.FC<AuthProps> = (props) => {
           labelText="Password"
           value={password}
           onChangeHandler={passwordHandler}
-          dataError={"Не менее " + minPassLength + " символов" }
+          dataError={"Не менее " + minPassLength + " символов"}
         />
         {props.error && <div className="card-panel red lighten-3">{props.error}</div>}
         <button className="btn waves-effect waves-light" type="submit" name="action">Submit

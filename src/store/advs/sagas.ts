@@ -1,33 +1,41 @@
 import { take, put, call, select } from 'redux-saga/effects'
 import * as actions from './actions'
-
-interface IFilter {
-    ___owner?: string
-    $or?: any
-}
+import { ISort, IFilter, TAdvsData } from './types'
 
 export function* getAdvsData() {
     while (true) {
         const { payload: { type, page, quest } } = yield take(actions.getAdvs.request)
         const jwtToken = yield select(state => state.auth.authData.authToken)
         const userId = yield select(state => state.auth.authData.id)
-        //temp
-        const limit = 5
-        //temp
-        // if (jwtToken) {
-            try {
-                let filter:IFilter = (type === 'myadvs') ? { ___owner: userId } : {}
-                quest && (filter.$or = [{title: `/${quest}/`}, {description:`/${quest}/`} ])
-                let queryCountAdvs: IFilter[] = [filter]
-
-                const advsCount = yield call(queryAdvsCount, jwtToken, queryCountAdvs)
+        const limit = yield select(state => state.advs.advsLimit)
+        const sortType = yield select(state => state.advs.sortType)
+        yield put(actions.togglePreloader())
+        try {
+            let filter: IFilter = (type === 'myadvs') ? { ___owner: userId } : {}
+            quest && (filter.$or = [{ title: `/${quest}/` }, { description: `/${quest}/` }])
+            let queryCountAdvs = [filter]
+            const advsCount = yield call(queryAdvsCount, jwtToken, queryCountAdvs)
+            if (advsCount > 0) {
                 const pagesCount = Math.ceil(advsCount / limit)
                 const checkPage = (page * limit > advsCount) ? Math.ceil(advsCount / limit) - 1 : page - 1
 
-                let queryAdv: any = [filter, { sort: [{ _id: -1 }], limit: [limit], skip: [checkPage * limit] }]
-                const result = yield call(queryAdvsData, jwtToken, queryAdv)
+                let sort: ISort[] = []
+                switch (sortType) {
+                    case 'dateDesc':
+                        sort = [{ _id: -1 }]
+                        break
+                    case 'priceDesc':
+                        sort = [{ price: -1 }]
+                        break
+                    case 'priceАsc':
+                        sort = [{ price: 1 }]
+                        break
+                }
 
-                const advsData = yield result.map((d: any) => {
+                const skip = checkPage * limit
+                let queryAdv = [filter, { sort, limit: [limit], skip: [skip] }]
+                const result = yield call(queryAdvsData, jwtToken, queryAdv)
+                const advsData = result.map((d: any) => {
                     return {
                         ...d,
                         title: d.title || 'Я не умею писать заголовки',
@@ -39,16 +47,18 @@ export function* getAdvsData() {
                             : "https://boatparts.com.ua/design/boatparts/images/no_image.png"
                     }
                 })
-                yield put(actions.getAdvs.success({advsData, pagesCount}))
-            } catch (e) {
-                console.error(e)
+                yield put(actions.getAdvs.success({ advsData, pagesCount }))
+
             }
-        // }
+        } catch (e) {
+            console.error(e)
+        }
+        yield put(actions.togglePreloader())
 
     }
 }
 
-const queryAdvsData = async (jwtToken: string, query: any) => {
+const queryAdvsData = async (jwtToken: string, query: TAdvsData) => {
     const params = {
         method: 'POST',
         headers: {
@@ -78,7 +88,7 @@ const queryAdvsData = async (jwtToken: string, query: any) => {
         .then(result => result.data.AdFind)
 }
 
-const queryAdvsCount = async (jwtToken: string, query: any) => {
+const queryAdvsCount = async (jwtToken: string, query: IFilter[]) => {
     const params = {
         method: 'POST',
         headers: {

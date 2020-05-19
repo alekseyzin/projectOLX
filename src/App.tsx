@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { ConnectedRouter, routerMiddleware } from 'connected-react-router'
-import M from 'materialize-css'
+// import M from 'materialize-css'
 
 import 'materialize-css/dist/css/materialize.min.css'
 import './App.css';
@@ -15,6 +15,7 @@ import rootSaga from './store/rootSaga';
 import Routes from './Routes';
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
+import Bread from './Components/Breadcrumbs/Bread';
 
 
 const sagaMiddleware = createSagaMiddleware()
@@ -32,6 +33,7 @@ const App = () => {
         <Header />
         <main>
           <div className="container">
+            <Bread />
             <Routes />
           </div>
         </main>

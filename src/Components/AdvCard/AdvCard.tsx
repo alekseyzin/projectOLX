@@ -9,6 +9,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import NotFound from '../NotFound/NotFound'
 import Message from './AddMessage/AddMessage'
 import Comments from './Comments/Comments'
+import { Helmet } from 'react-helmet'
 
 const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) =>
   bindActionCreators(
@@ -40,10 +41,10 @@ const AdCard = (props: TProps) => {
     }
   }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     const elems = document.querySelectorAll('.materialboxed');
     M.Materialbox.init(elems, { inDuration: 0, outDuration: 0 });
-  },[props.advCard.images[1]])
+  }, [props.advCard])
 
   const elems = document.querySelectorAll('.modal');
   M.Modal.init(elems, {});
@@ -53,6 +54,10 @@ const AdCard = (props: TProps) => {
   if (props.isAdv) {
     return (
       <div className={classnames("row", style.rowcorrect)}>
+        <Helmet>
+          <title>{`${props.advCard.title} - объявление на Сакес`}</title>
+          <meta name="description" content={props.advCard.description.slice(0, 160)} />
+        </Helmet>
         <div className="col m9 s12">
           <div className={style.contentWrapper}>
             <div className={style.topPhoto}>
@@ -64,7 +69,6 @@ const AdCard = (props: TProps) => {
               <span className={style.data}>{props.advCard.advDate}</span>
               <p className={style.description}>{props.advCard.description}</p>
             </div>
-            <Comments idAdv={props.match.params.id} />
             {
               props.advCard.images.map((img, index) => {
                 if (index > 0) {
@@ -76,6 +80,7 @@ const AdCard = (props: TProps) => {
                 }
               })
             }
+            <Comments idAdv={props.match.params.id} />
           </div>
         </div>
         <div className="col m3 s12">
@@ -94,7 +99,7 @@ const AdCard = (props: TProps) => {
             </div>
           </div>
         </div>
-        <Message nick={props.advCard.nick} userId={props.advCard.userId}/>
+        <Message nick={props.advCard.nick} userId={props.advCard.userId} />
       </div>
     )
   } else {

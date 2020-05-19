@@ -12,7 +12,8 @@ export function* setAdvSaga() {
       for (let i = 0; i < 3; i++) {
         let imgId = oldImages[i]?._id ? oldImages[i]._id : null
         if (refPhotos[i].current?.elements[0].files.length) {
-          imgId = yield call(upLoadPhoto, jwtToken, new FormData(refPhotos[i].current))
+          const body = new FormData(refPhotos[i].current)
+          imgId = yield call(upLoadPhoto, jwtToken, body)
         }
         idPhotos.push({ _id: imgId })
       }
@@ -44,7 +45,6 @@ interface IPhoto {
 
 const addAdv = async (jwtToken: string, title: string, description: string, address: string, price: string, tags: string, idPhotos: IPhoto[], _id: string | null) => {
   const arrTags = tags.replace(/\s+/g, '').split(',')
-  debugger
   const variables = { "title": title, "description": description, "address": address, "price": Number(price), "tags": arrTags, "images": idPhotos, "_id": _id }
   if (!_id) delete variables._id
   const data = {
@@ -70,7 +70,7 @@ const addAdv = async (jwtToken: string, title: string, description: string, addr
     // .then(data => console.log(data))
 }
 
-export async function upLoadPhoto(jwtToken: string, body: any) {
+export async function upLoadPhoto(jwtToken: string, body:FormData) {
   return fetch('http://marketplace.asmer.fs.a-level.com.ua/upload', {
     method: "POST",
     headers: jwtToken ? { Authorization: 'Bearer ' + jwtToken } : {},

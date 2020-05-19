@@ -68,7 +68,7 @@ const AddMessage = (props: IProps) => {
                     Отмена
                 </button>
                 <button
-                    disabled={text ? false : true}
+                    disabled={text.trim() ? false : true}
                     className="modal-close waves-effect waves-green btn"
                     onClick={sendMessageHandler}
                 >

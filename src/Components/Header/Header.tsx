@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators, Dispatch } from 'redux'
-// import M from 'materialize-css/dist/js/materialize'
 import M from "materialize-css";
 
 import style from './style.module.scss'
@@ -9,6 +8,8 @@ import { Link } from 'react-router-dom'
 import { IRootState, IRootAction } from '../../store/rootReducer'
 import * as authActions from '../../store/auth/actions'
 import classnames from 'classnames'
+import DropdownMenu from './DropdownMenu/DropdownMenu';
+import RightAuthMenu from './RightAuthMenu/RightAuthMenu';
 
 const mapStateToProps = (state: IRootState) => ({
     authToken: state.auth.authData.authToken,
@@ -32,51 +33,42 @@ const Header: React.FC<IProps> = (props) => {
         M.Dropdown.init(dropdowns, {});
     }, [props.authToken]);
 
-    let userBlock;
 
-    if (props.authToken) {
-        userBlock = <a
-            className="dropdown-trigger black-text"
-            href="#!"
-            data-target="dropdown1"
-        >
-            <span className={classnames("truncate left", style.nick)}>{props.nick}</span>
-            <i className="material-icons right">arrow_drop_down</i>
-        </a>
-    } else {
-        userBlock = <div className={style.logIn}>
-            <Link to='/registration' className="indigo-text accent-4">Регистрация</Link>
-            <span>|</span>
-            <Link to='/authorization' className="indigo-text accent-4">Вход</Link>
-        </div>
-    }
+    document.addEventListener('DOMContentLoaded', function (e) {
+        let elems = document.querySelectorAll('.sidenav');
+        M.Sidenav.init(elems);
+    });
 
     return (
         <React.Fragment>
-            <ul id="dropdown1" className={classnames(style.dropdownPosition, "dropdown-content black-text")}>
-                <li><Link to="/profile">Профиль</Link></li>
-                <li><Link to="/myadvs">Мои объявления</Link></li>
-                <li><Link to="/mymessages">Cообщения</Link></li>
-                <li className="divider"></li>
-                <li><Link to='/authorization' className="indigo-text accent-4" onClick={() => props.unAuthUser()}>Выход</Link></li>
-            </ul>
             <nav className="white">
                 <div className={classnames("container", style.h100)}>
                     <div className="nav-wrapper">
-                        <span className={classnames("left brand-logo", style.logo)}>
-                            <Link to="/">Сакес</Link>
-                        </span>
-                        <ul className="right hide-on-small-and-down">
+                        <Link className="left brand-logo black-text" to="/">Сакес</Link>
+                        <a href="!#"
+                            data-target="mobile-demo"
+                            className="sidenav-trigger right hide-on-med-and-up black-text"
+                        >
+                            <i className="material-icons">menu</i>
+                        </a>
+                        <ul className="right">
                             <li>
-                            <Link to='/addadv' className="waves-effect waves-light btn">
-                                <i className="material-icons left">add</i>Объявление
-                            </Link>
+                                <Link to='/addadv' className="waves-light btn">
+                                    <i className="material-icons left">add</i>
+                                    <span className="hide-on-small-and-down">Объявление</span>
+                                </Link>
                             </li>
-                            <li>{userBlock}</li>
+                            <li className="hide-on-small-and-down"><RightAuthMenu authToken={props.authToken} nick={props.nick} /></li>
                         </ul>
                     </div>
                 </div>
             </nav>
+            <ul id="dropdown1" className={classnames(style.dropdownPosition, "dropdown-content black-text")}>
+                <DropdownMenu isMobile={false} unAuthUser={props.unAuthUser} />
+            </ul>
+            <ul className="sidenav" id="mobile-demo">
+                <DropdownMenu isMobile={true} unAuthUser={props.unAuthUser} />
+            </ul>
         </React.Fragment>
     )
 }

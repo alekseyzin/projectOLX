@@ -1,0 +1,23 @@
+.breadcrumbs {
+
+    li{
+        display: inline-block;
+    }
+
+    .parentLink {
+        color: blue;
+    
+        &::after {
+            content: '\E5CC';
+            font-family: 'Material Icons';
+            color: brown;
+            vertical-align: middle;
+            margin: 0 5px;
+    
+        }
+    }
+
+    .activeLink {
+        color: black;
+    }
+}

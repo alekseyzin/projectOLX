@@ -8,13 +8,14 @@ import style from './style.module.scss'
 import classnames from 'classnames'
 import Input from '../../FormElements/Input'
 import { IRootState, IRootAction } from '../../../store/rootReducer'
-import {checkEmail, checkLengthInput} from '../../../GlobalFunctions/GlobalFunctions'
+import { checkEmail, checkLengthInput } from '../../../GlobalFunctions/GlobalFunctions'
+import { Helmet } from 'react-helmet'
 
 const mapStateToProps = (state: IRootState) => ({
-    error: state.auth.authData.error
+  error: state.auth.authData.error
 })
 
-const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) => 
+const mapDispatchToProps = (dispatch: Dispatch<IRootAction>) =>
   bindActionCreators(
     {
       // authUser: authActions.authUser.request,
@@ -37,12 +38,12 @@ const Authorization: React.FC<AuthProps> = (props) => {
     return () => {
       props.deleteError()
     }
-  },[])
+  }, [])
 
   const loginHandler = (e: React.FormEvent<HTMLInputElement>) => {
     setLogin(e.currentTarget.value)
     checkEmail('login', e.currentTarget.value)
-    
+
   }
 
   const passwordHandler = (e: React.FormEvent<HTMLInputElement>) => {
@@ -53,15 +54,19 @@ const Authorization: React.FC<AuthProps> = (props) => {
   const submitHandler = (e: React.FormEvent<Element>) => {
     e.preventDefault()
     const errors = []
-        errors.push(checkEmail('login', login))
-        errors.push(checkLengthInput(password, 'password', minPassLength, 0, setPassword))
-        if (errors.indexOf(false) === -1)
-    props.regUser({login, password})
+    errors.push(checkEmail('login', login))
+    errors.push(checkLengthInput(password, 'password', minPassLength, 0, setPassword))
+    if (errors.indexOf(false) === -1)
+      props.regUser({ login, password })
   }
 
   return (
 
     <div className={classnames("row container", style.wrapper)}>
+      <Helmet>
+        <title>Регистрация - Сакес</title>
+        <meta name="description" content="Форма регистрации на сайте Сакес" />
+      </Helmet>
       <h1 className="center-align">Регистрация</h1>
       <form className="col s6 offset-s3" onSubmit={submitHandler} >
         <Input
@@ -78,7 +83,7 @@ const Authorization: React.FC<AuthProps> = (props) => {
           labelText="Password"
           value={password}
           onChangeHandler={passwordHandler}
-          dataError={"Не менее " + minPassLength + " символов" }
+          dataError={"Не менее " + minPassLength + " символов"}
         />
         {props.error && <div className="card-panel red lighten-3">{props.error}</div>}
         <button className="btn waves-effect waves-light" type="submit" name="action">Submit

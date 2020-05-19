@@ -1,6 +1,8 @@
-import { select, take, call, put } from 'redux-saga/effects';
+import { select, take, call, put } from 'redux-saga/effects'
 import * as actions from './actions'
 import { upLoadPhoto } from '../addAdv/sagas'
+import { TQueryMessage, IMessageFilter } from './types'
+
 
 export function* setMessageSaga() {
   while (true) {
@@ -22,18 +24,18 @@ export function* setMessageSaga() {
 
 export function* getMessageSaga() {
   while (true) {
-    const {payload:{page}} = yield take(actions.getMessages.request)
+    const { payload: { page } } = yield take(actions.getMessages.request)
     const jwtToken = yield select(state => state.auth.authData.authToken)
     const userId = yield select(state => state.auth.authData.id)
     const limit = 5
 
     try {
-      const queryCount = [{ "to._id": userId }]
+      const queryCount: IMessageFilter[] = [{ "to._id": userId }]
       const messageCount = yield call(queryMessageCount, jwtToken, queryCount)
       const pagesCount = Math.ceil(messageCount / limit)
       const checkPage = (page * limit > messageCount) ? Math.ceil(messageCount / limit) - 1 : page - 1
-      
-      let queryMessage: any = [{ "to._id": userId }, { sort: [{ _id: -1 }], limit: [limit], skip: [checkPage * limit] }]
+
+      let queryMessage: TQueryMessage = [{ "to._id": userId }, { sort: [{ _id: -1 }], limit: [limit], skip: [checkPage * limit] }]
       const result = yield call(queryMessages, jwtToken, queryMessage)
 
       const messagesData = result.map((d: any) => {
@@ -47,14 +49,14 @@ export function* getMessageSaga() {
           phones: d.owner.phones?.length ? d.owner.phones.join(', ') : "Нет телефона"
         }
       })
-      yield put(actions.getMessages.success({messagesData, pagesCount}))
+      yield put(actions.getMessages.success({ messagesData, pagesCount }))
     } catch (e) {
       console.error(e)
     }
   }
 }
 
-async function queryMessages(jwtToken: string, query: any) {
+async function queryMessages(jwtToken: string, query: TQueryMessage) {
   const data = {
     method: 'POST',
     headers: {
@@ -103,7 +105,7 @@ async function mutationMessage(jwtToken: string, userId: string, text: string, i
     .then(data => data.data.MessageUpsert._id)
 }
 
-const queryMessageCount = async (jwtToken: string, query: any) => {
+const queryMessageCount = async (jwtToken: string, query: IMessageFilter[]) => {
   const params = {
     method: 'POST',
     headers: {
