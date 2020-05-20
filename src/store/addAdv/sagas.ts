@@ -12,6 +12,7 @@ export function* setAdvSaga() {
       for (let i = 0; i < 3; i++) {
         let imgId = oldImages[i]?._id ? oldImages[i]._id : null
         if (refPhotos[i].current?.elements[0].files.length) {
+          debugger
           const body = new FormData(refPhotos[i].current)
           imgId = yield call(upLoadPhoto, jwtToken, body)
         }

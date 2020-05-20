@@ -42,3 +42,11 @@ export const checkPhones = (id:string, phones:string) => {
     }
     return toggleError(id, isPhones);
 }
+
+export const checkPhoto = (data:string) => {
+    const possibleExp = [/jpg/, /jpeg/, /png/, /gif/]
+    for (let i = 0; i < possibleExp.length; i++) {
+        if (possibleExp[i].test(data)) return true  
+    }
+    return false
+}

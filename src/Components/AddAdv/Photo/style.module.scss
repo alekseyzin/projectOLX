@@ -1,12 +1,16 @@
 .logoWrapper {
     position: relative;
     width: 100px;
+    height: 100px;
     margin: 0 5px;
+    padding: 2px;
+    border: 1px solid #bbb8b8;
+    border-radius: 2px;
 
     .avatar {
         width: 100%;
-        // margin: 0 auto 20px auto;
-        // display: block;
+        height: 100%;
+        object-fit: cover;
     }
 
     .inputFileWrapper {
