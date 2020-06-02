@@ -101,7 +101,7 @@ const Profile: React.FC<IProps> = (props: IProps) => {
   return (
     <div className={classnames("row", style.wrapper)}>
       <Helmet>
-        <title>Профиль - хороший понт дороже денег - Сакес</title>
+        <title>Профиль - Success</title>
         <meta name="description" content="Подмарафеть свой лук" />
       </Helmet>
       <h1 className="center-align">Профиль</h1>

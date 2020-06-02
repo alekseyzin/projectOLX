@@ -44,7 +44,7 @@ const Header: React.FC<IProps> = (props) => {
             <nav className="white">
                 <div className={classnames("container", style.h100)}>
                     <div className="nav-wrapper">
-                        <Link className="left brand-logo black-text" to="/">Сакес</Link>
+                        <Link className="left brand-logo black-text" to="/">Success</Link>
                         <a href="!#"
                             data-target="mobile-demo"
                             className="sidenav-trigger right hide-on-med-and-up black-text"

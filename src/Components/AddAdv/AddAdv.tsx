@@ -110,10 +110,10 @@ const AddAdv = (props: IProps) => {
     return (
         <div className="row">
             <Helmet>
-                <title>Разместить объявление - Сакес</title>
+                <title>Разместить объявление - Success</title>
                 <meta name="description" content="Форма создания объявления" />
             </Helmet>
-            <h1 className="center-align">Разместить объявление на Сакесе</h1>
+            <h1 className="center-align">Разместить объявление на Success</h1>
             <div className={style.photoWrapper}>
                 <Photo id="photo1" refPhoto={refPhoto1} src={props.advData.images[0]?.url || ''} />
                 <Photo id="photo2" refPhoto={refPhoto2} src={props.advData.images[1]?.url || ''} />

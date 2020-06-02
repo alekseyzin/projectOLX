@@ -8,7 +8,7 @@ const NotFound = () => {
     return (
         <div className={style.notFoundWrapper}>
             <Helmet>
-                <title>Фиаско Братан - Сакес</title>
+                <title>Фиаско Братан - Success</title>
                 <meta name="description" content="Не унывай, пробуй еще" />
             </Helmet>
             <div className="row">

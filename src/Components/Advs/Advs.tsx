@@ -45,7 +45,7 @@ const AdvsBlock = (props: TProps) => {
     const isMyAdvs = props.match.path.includes('myadvs')
     const pathAdvs = quest ? `/q-${quest}` : ''
     const pathMyAdvs = quest ? `/myadvs/q-${quest}` : '/myadvs'
-    let h1 = isMyAdvs ? 'Мои объявления' : 'Лудший Сакес в твоей жизни!'
+    let h1 = isMyAdvs ? 'Мои объявления' : 'Список объявлений!'
     quest && (h1 = `Поиск: ${quest}`)
 
     useEffect(() => {
