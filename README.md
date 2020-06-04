@@ -17,4 +17,4 @@ __Site__: http://alzsuccess.surge.sh/
 * bread crumbs
 * SEO tags
 * Form validation
-
+* Sorting
