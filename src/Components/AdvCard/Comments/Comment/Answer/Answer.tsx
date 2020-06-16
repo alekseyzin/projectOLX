@@ -43,6 +43,8 @@ const Answer = (props: TProps) => {
 
     const sendAnswerHandler = () => {
         props.setComment({answerTo: props.commentID, text})
+        setToggle(!toggle)
+        setText('')
     }
 
     return (

@@ -37,14 +37,14 @@ export interface IsortArr {
     value: string
 }
 
-export interface ISort {
+export interface ISortAdvs {
     _id?: number
     price?: number
 }
 
-export type TAdvsData = Array<IFilter | ISortPos>
+export type TAdvsData = Array<IFilterAdvs | ISortPos>
 
-export interface IFilter {
+export interface IFilterAdvs {
     ___owner?: string
     $or?: Array<ITitle | IDescription>
 }
@@ -58,7 +58,7 @@ interface IDescription {
 }
 
 interface ISortPos {
-    sort: ISort[]
+    sort: ISortAdvs[]
     limit: Array<number>
     skip: Array<number>
 }
@@ -76,4 +76,19 @@ interface ISortPosComments {
 
 interface IId {
     _id: number
+}
+
+export interface IAdvsDataPayload {
+    _id: string
+    title: string | null
+    createdAt: string
+    price: number | null
+    address: string | null
+    images: IImages[] | null
+
+}
+
+export interface IImages {
+    url: string | null
+    _id: string
 }

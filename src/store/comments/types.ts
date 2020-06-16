@@ -16,7 +16,7 @@ export interface IGetCommentsSuccess {
     readonly nick: string
     readonly text: string
     readonly avatar: string
-    readonly answers: IComment[] | null
+    readonly answers: IGetCommentsSuccess[] | null
 }
 
 export interface IComment {
@@ -30,4 +30,17 @@ export interface IComment {
 export interface ISetCommentPayload {
     answerTo: string | null
     text: string
+}
+
+export interface ICommentsDataPayload {
+    _id: string
+    text: string | any
+    createdAt: string
+    owner: ICommentsDataOwner
+    answers: ICommentsDataPayload[] | null
+}
+
+interface ICommentsDataOwner {
+    avatar: {url: string | null} | null
+    nick: string | null
 }

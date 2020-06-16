@@ -15,6 +15,7 @@ export interface IMessageState {
     readonly failure: string
     readonly messagesData: IMessageData[]
     readonly pagesCount: number
+    readonly limit: number
 }
 
 export interface IMessageData {
@@ -50,4 +51,18 @@ interface IMessageSortPos {
 
 interface IMessageSort {
     _id: number
+}
+
+export interface IMessageDataPayload {
+    _id: string
+    text: string | null
+    createdAt: string
+    image: { url: string | null } | null
+    owner: IMessageDataOwner
+}
+
+interface IMessageDataOwner {
+    avatar: { url: string | null } | null
+    nick: string | null
+    phones: Array<string>
 }

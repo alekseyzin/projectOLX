@@ -26,10 +26,30 @@ type TProps = ReturnType<typeof mapDispatchToProps>
     & IIdAdv
 
 const Comments = (props: TProps) => {
-    
+
     useEffect(() => {
         props.getComments({ idAdv: props.idAdv })
     }, [])
+
+    const printComments = (commentsData: IGetCommentsSuccess[]) => {
+        return (
+            commentsData.map((d: IGetCommentsSuccess) => (
+                <li key={d._id}>
+                    <Comment
+                        avatar={d.avatar}
+                        createdAt={d.createdAt}
+                        nick={d.nick}
+                        text={d.text}
+                        _id={d._id}
+                        answerExist={d.answers ? true : false}
+                    />
+                    <ul>
+                        { d.answers && printComments(d.answers)}
+                    </ul>
+                </li>
+            ))
+        )
+    }
 
     return (
         <div className={style.commentsWrapper}>
@@ -37,7 +57,8 @@ const Comments = (props: TProps) => {
             <div className={style.comments}>
                 {!props.commentsData.length && <p>Еще ни кто не написал. Напиши первым.</p>}
                 <ul>
-                    {props.commentsData.map((d: IGetCommentsSuccess) => (
+                    {printComments(props.commentsData)}
+                    {/* {props.commentsData.map((d: IGetCommentsSuccess) => (
                         <li key={d._id}>
                             <Comment
                                 avatar={d.avatar}
@@ -64,7 +85,7 @@ const Comments = (props: TProps) => {
                                 }
                             </ul>
                         </li>
-                    ))}
+                    ))} */}
                 </ul>
             </div>
             <div className={style.answer}>

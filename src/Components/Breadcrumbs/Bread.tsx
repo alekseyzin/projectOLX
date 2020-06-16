@@ -5,7 +5,7 @@ import style from './style.module.scss'
 
 
 const routes = {
-    "/": "Сакес",
+    "/": "Success",
     "/page-:id": 'cтр. :id',
     "/q-:q": ':q',   
     "/q-:q/page-:id": 'cтр. :id',

@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode'
 import * as actions from './actions'
 import { push } from 'connected-react-router'
 import { IJWTData } from './types'
+import { getAuthToken, regUserRequest } from '../../Services/api'
 
 
 
@@ -16,10 +17,10 @@ export function* authUserSaga() {
         yield put(actions.authUser.success({ jwtToken, id, login }))
     }
     while (true) {
-        const { payload } = yield take(actions.authUser.request)
+        const { payload: { login, password } } = yield take(actions.authUser.request)
 
         try {
-            const jwtToken = yield call(getAuthToken, payload.login, payload.password)
+            const jwtToken = yield call(getAuthToken, login, password)
 
             if (jwtToken) {
                 const jwtData = yield jwtDecode(jwtToken)
@@ -56,44 +57,3 @@ export function* regUserSaga() {
     }
 }
 
-const getAuthToken = async (login: string, password: string) => {
-
-    const data = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-            query: `query login($login: String!, $password: String!){
-          login(login:$login, password:$password)
-          }`,
-            variables: { "login": login, "password": password }
-        })
-    }
-    return await fetch("http://marketplace.asmer.fs.a-level.com.ua/graphql", data)
-        .then(response => response.json())
-        .then(data => data.data.login)
-}
-
-const regUserRequest = async (login: string, password: string) => {
-
-    const data = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-            query: `mutation reg($login: String!, $password: String!) {
-                createUser(login: $login, password: $password) {
-                  _id
-                }
-              }`,
-            variables: { "login": login, "password": password }
-        })
-    }
-    return await fetch("http://marketplace.asmer.fs.a-level.com.ua/graphql", data)
-        .then(response => response.json())
-        .then(data => data.data.createUser)
-}

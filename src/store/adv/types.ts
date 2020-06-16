@@ -29,21 +29,22 @@ export interface IAdvcardData{
     readonly tags: string
 }
 
+export interface IAdvCardPayload {
+    address: string | null
+    createdAt: string
+    description: string | null
+    price: number | null
+    tags: Array<string>
+    title: string | null
+    _id: string
+    owner: IAdvCardOwner
+    images: IImages[] | null
+}
 
-// export interface IOwner {
-//     nick: string,
-//     createdAt: string,
-//     phones: Array<string>
-//     avatar: IImages | null
-// }
-
-// export interface IAdv {
-//     _id: string,
-//     createdAt: string,
-//     owner: IOwner,
-//     title: string,
-//     price: string,
-//     description: string,
-//     images: IImages[] | null,
-//     address: string,
-// }
+interface IAdvCardOwner {
+    createdAt: string
+    nick: string | null
+    _id: string
+    phones: Array<string>
+    avatar: {url: string | null}
+}

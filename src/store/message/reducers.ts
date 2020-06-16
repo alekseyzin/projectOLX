@@ -6,7 +6,8 @@ const initialState: IMessageState = {
     success: '',
     failure: '',
     messagesData: [],
-    pagesCount: 1
+    pagesCount: 1,
+    limit: 5
 }
 
 export default (state: IMessageState = initialState, action: TMessageAction): IMessageState => {
@@ -19,7 +20,8 @@ export default (state: IMessageState = initialState, action: TMessageAction): IM
             return { ...state, success: '', failure: '' }
         case getType(actions.getMessages.success):
             return {
-                ...state, messagesData: [
+                ...state, 
+                messagesData: [
                     ...action.payload.messagesData
                 ],
                 pagesCount: action.payload.pagesCount

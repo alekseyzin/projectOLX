@@ -1,21 +1,21 @@
-import { combineReducers} from 'redux'
-import {StateType, EmptyAction} from 'typesafe-actions'
+import { combineReducers } from 'redux'
+import { StateType, EmptyAction } from 'typesafe-actions'
 import { connectRouter } from 'connected-react-router'
 
 import history from '../history'
 import authReducer from './auth/reducers'
-import { AuthAction} from './auth/types'
-import {IProfileAction} from './profile/types'
+import { AuthAction } from './auth/types'
+import { IProfileAction } from './profile/types'
 import profileReducer from './profile/reducers'
-import {IAdvsAction} from './advs/types'
+import { IAdvsAction } from './advs/types'
 import advsReducer from './advs/reducers'
-import {IAdvCardAction} from './adv/types'
+import { IAdvCardAction } from './adv/types'
 import advCardReducer from './adv/reducers'
-import {AddAdvAction} from './addAdv/types'
+import { AddAdvAction } from './addAdv/types'
 import messageReducer from './message/reducers'
-import {TMessageAction} from './message/types'
+import { TMessageAction } from './message/types'
 import commentsReducer from './comments/reducers'
-import {TCommentsAction} from './comments/types'
+import { TCommentsAction } from './comments/types'
 
 
 
@@ -30,7 +30,7 @@ const rootReducer = combineReducers({
 })
 
 export type IRootState = StateType<typeof rootReducer>
-export type IRootAction = AuthAction | EmptyAction<string> | IProfileAction 
+export type IRootAction = AuthAction | EmptyAction<string> | IProfileAction
     | IAdvsAction | IAdvCardAction | AddAdvAction | TMessageAction | TCommentsAction
 
 export default rootReducer;
