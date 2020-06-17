@@ -11,7 +11,7 @@ export interface IAdv {
     address: string
     price: string
     tags: string
-    refPhotos: RefObject<HTMLFormElement>[] | undefined[] | null[]
+    refPhotos: RefObject<HTMLFormElement | HTMLInputElement>[] | undefined[] | null[]
     oldImages: IImages[] | null
 }
 

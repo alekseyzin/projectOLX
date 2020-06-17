@@ -26,7 +26,7 @@ export const handlerComentsData = (commentsData: ICommentsDataPayload[]): IGetCo
 //AddAdv
 //refPhotos && (refPhotos.length > 0) && refPhotos[i].current && 
 // IAdv["refPhotos"]
-export async function handlerAddImg(oldImages: IAdv["oldImages"], refPhotos: IAdv["refPhotos"], jwtToken: string) {
+export async function handlerAddImg(oldImages: IAdv["oldImages"], refPhotos: IAdv["refPhotos"][], jwtToken: string) {
     const idPhotos = [];
     for (let i = 0; i < 3; i++) {
         let imgId = (oldImages && oldImages[i]?._id) ? oldImages[i]._id : null
