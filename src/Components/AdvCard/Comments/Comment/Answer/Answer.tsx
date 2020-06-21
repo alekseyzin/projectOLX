@@ -50,7 +50,7 @@ const Answer = (props: TProps) => {
     return (
         <div>
             {toggle
-                ? <button onClick={toggleHandler} className={style.answerButton}>Ответить</button>
+                ? <button onClick={toggleHandler} className={style.answerButton}>Answer</button>
                 : <div className={style.answerWrapper}>
                     <textarea value={text} onChange={changeTextHandler}></textarea>
                     <div className={style.buttons}>
@@ -58,8 +58,8 @@ const Answer = (props: TProps) => {
                             disabled={text.trim() ? false : true} 
                             onClick={sendAnswerHandler} 
                             className={style.sendButton}
-                        >Отправить</button>
-                        {props.answerClosed && <button onClick={toggleHandler} className={style.cancelButton}>Отмена</button>}
+                        >Send</button>
+                        {props.answerClosed && <button onClick={toggleHandler} className={style.cancelButton}>Cancel</button>}
                     </div>
                 </div>
 

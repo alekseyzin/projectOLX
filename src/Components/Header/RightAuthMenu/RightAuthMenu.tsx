@@ -17,9 +17,9 @@ const RightAuthMenu = (props: IProps) => {
                 <i className="material-icons right">arrow_drop_down</i>
             </a>
             : <div className={style.logIn}>
-                <Link to='/registration' className="indigo-text accent-4">Регистрация</Link>
+                <Link to='/registration' className="indigo-text accent-4">Registration</Link>
                 <span>|</span>
-                <Link to='/authorization' className="indigo-text accent-4">Вход</Link>
+                <Link to='/authorization' className="indigo-text accent-4">Sign in</Link>
             </div>
 
     )

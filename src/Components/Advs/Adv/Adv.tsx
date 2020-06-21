@@ -7,7 +7,7 @@ const Adv = (props: IAdv) => {
 
     return (
 
-        <div className="col s6 m12">
+        <div className="col s12 m12">
             <div className={style.advWrapper}>
                 <div className={style.photoWrapper}>
                     <Link to={`/advcard/ad-${props._id}`}>

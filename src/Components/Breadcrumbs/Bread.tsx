@@ -6,24 +6,24 @@ import style from './style.module.scss'
 
 const routes = {
     "/": "Success",
-    "/page-:id": 'cтр. :id',
+    "/page-:id": 'page :id',
     "/q-:q": ':q',   
-    "/q-:q/page-:id": 'cтр. :id',
-    "/myadvs": 'Мои объявления',
+    "/q-:q/page-:id": 'page :id',
+    "/myadvs": 'My adverts',
     "/myadvs/q-:q": ':q',
-    "/myadvs/page-:id": 'cтр. :id',
-    "/myadvs/q-:q/page-:id": 'cтр. :id',
+    "/myadvs/page-:id": 'page :id',
+    "/myadvs/q-:q/page-:id": 'page :id',
     "/profile": "Profile",
-    "/authorization": 'Авторизация',
-    "/registration": 'Регистрация',
-    "/regsuccess": 'Регистрация',
-    "/mymessages": 'Мои сообщения',
-    "/mymessages/page-:id": 'cтр. :id',
-    "/advcard/ad-:id": 'Объявление',
+    "/authorization": 'Authorization',
+    "/registration": 'Registration',
+    "/regsuccess": 'Registration',
+    "/mymessages": 'My messages',
+    "/mymessages/page-:id": 'page :id',
+    "/advcard/ad-:id": 'Adverts',
     "/advcard": null,
-    "/addadv": 'Создать объявление',
-    "/adedit-:id": 'Редактировать объявление',
-    "/advsaccess": 'Размещено'
+    "/addadv": 'Create adverts',
+    "/adedit-:id": 'Edit adverts',
+    "/advsaccess": 'Created'
 }
 
 const Bread = () => {

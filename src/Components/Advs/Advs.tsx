@@ -8,7 +8,7 @@ import { IAdv } from '../../store/advs/types'
 import Adv from './Adv/Adv'
 import { RouteComponentProps } from 'react-router-dom'
 import Pagination from '../Pagination/Pagination'
-import AdvUser from './AdvUser/AdvUser'
+import AdvUser from './Adv/AdvUser'
 import Search from './Search/Search'
 import Preloader from '../Preloader/Preloader'
 import Sorting from './Sorting/Sorting'
@@ -45,7 +45,7 @@ const AdvsBlock = (props: TProps) => {
     const isMyAdvs = props.match.path.includes('myadvs')
     const pathAdvs = quest ? `/q-${quest}` : ''
     const pathMyAdvs = quest ? `/myadvs/q-${quest}` : '/myadvs'
-    let h1 = isMyAdvs ? 'Мои объявления' : 'Список объявлений!'
+    let h1 = isMyAdvs ? 'My adverts' : 'Adverts list!'
     quest && (h1 = `Поиск: ${quest}`)
 
     useEffect(() => {
@@ -55,10 +55,6 @@ const AdvsBlock = (props: TProps) => {
         //     props.deleteAdvs()
         // }
     }, [props.match, props.advsLimit, props.sortType])
-
-    // useEffect(() => {
-    //     props.setAdvsLimit(10)
-    // }, [])
 
     if (!props.isFetching) {
         return (
@@ -92,7 +88,7 @@ const AdvsBlock = (props: TProps) => {
                                 />
                             }
                         })
-                        : <div className="center-align">По вашему запросу ничего не найдено</div>
+                        : <div className="center-align">The results were not found for your request. </div>
                     }
                 </div>
                 <Pagination

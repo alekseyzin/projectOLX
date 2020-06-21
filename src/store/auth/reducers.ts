@@ -5,10 +5,10 @@ import { IAuthState, IAuthAction } from './types'
 
 const initialState: IAuthState = {
     authData: {
-        authToken: '',
-        error: "",
-        id: '',
-        login: '',
+        authToken: null,
+        error: null,
+        id: null,
+        login: null,
     }
 }
 

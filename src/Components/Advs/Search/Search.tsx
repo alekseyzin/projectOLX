@@ -50,7 +50,7 @@ const Search = (props: IProps) => {
                 onKeyDown={keyDownQuestHandler}
                 id="icon_prefix"
                 type="text"
-                placeholder="Поиск"
+                placeholder="Search"
             />
             <Link onClick={cleareHandler} className={style.clearBtn}  to={clearPath}><i className="material-icons">close</i></Link>
         </div>

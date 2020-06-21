@@ -53,12 +53,14 @@ const Header: React.FC<IProps> = (props) => {
                         </a>
                         <ul className="right">
                             <li>
-                                <Link to='/addadv' className="waves-light btn">
+                                <Link to='/addadv' className="btn">
                                     <i className="material-icons left">add</i>
-                                    <span className="hide-on-small-and-down">Объявление</span>
+                                    <span className="hide-on-small-and-down">Advert</span>
                                 </Link>
                             </li>
-                            <li className="hide-on-small-and-down"><RightAuthMenu authToken={props.authToken} nick={props.nick} /></li>
+                            <li className="hide-on-small-and-down">
+                                <RightAuthMenu authToken={props.authToken} nick={props.nick} />
+                            </li>
                         </ul>
                     </div>
                 </div>

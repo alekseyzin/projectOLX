@@ -8,14 +8,14 @@ interface IProps {
 }
 
 const SEO = (props:IProps) => {
-    let title = "Объявления - самые сакесные объявления на Success"
-    if (props.isMyAdvs) title = "Мои объявления"
+    let title = "Adverts - The most current ads on the Success"
+    if (props.isMyAdvs) title = "My adverts"
     if (props.quest) title = `Поиск - ${props.quest}`
     if (props.page>1) title = `${title} - page ${props.page}` 
 
-    let description = "Лучше нет интереса чем размещать объявления на Success. Не тормози - Success"
-    if (props.isMyAdvs) description = "Личные объявления пользователя"
-    if (props.quest) description = `Объявления - ${props.quest} на Success`
+    let description = "Your goods will be sold at a bargain price"
+    if (props.isMyAdvs) description = "User's personal ads"
+    if (props.quest) description = `Ads - ${props.quest} on the Success`
 
     return (
         <Helmet>

@@ -54,7 +54,7 @@ const AddMessage = (props: IProps) => {
     return (
         <div id="modal1" className="modal modal-fixed-footer">
             <div className="modal-content">
-                <h4 className={style.header}>Написать сообщение {props.nick}</h4>
+                <h4 className={style.header}>Send a message to the {props.nick}</h4>
                 <div className={style.photoWrapper}>
                     <Photo id="photo1" refPhoto={refPhoto} src="https://brilliant24.ru/files/cat/bg_template_01.png" />
                 </div>
@@ -65,14 +65,14 @@ const AddMessage = (props: IProps) => {
             </div>
             <div className="modal-footer">
                 <button className="modal-close waves-green btn-flat">
-                    Отмена
+                    Cancel
                 </button>
                 <button
                     disabled={text.trim() ? false : true}
                     className="modal-close waves-effect waves-green btn"
                     onClick={sendMessageHandler}
                 >
-                    Отправить
+                    Send
                 </button>
             </div>
         </div>

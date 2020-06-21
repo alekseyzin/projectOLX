@@ -1,5 +1,8 @@
+html{
+  font-size: 14px;
+}
 h1{
-    font-size: 2rem;
+    font-size: 3rem;
     /* margin: 0; */
   }
 #root{
@@ -7,6 +10,6 @@ h1{
 }
 
 main{
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 114px);
   overflow: hidden;
 }

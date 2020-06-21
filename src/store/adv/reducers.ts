@@ -31,7 +31,8 @@ export default (state: IAdvState = initialState, action: IAdvCardAction): IAdvSt
                 ...state, advCardData: {
                     ...state.advCardData,
                     ...action.payload
-                }
+                },
+                isAdv: true,
             }
         case getType(actions.getAdvCard.failure):
             return { ...state, isAdv: false }
@@ -42,7 +43,7 @@ export default (state: IAdvState = initialState, action: IAdvCardAction): IAdvSt
                     ...state.advCardData,
                     ...initialState.advCardData
                 },
-                isAdv: true,
+                // isAdv: true,
             }
         default:
             return state;

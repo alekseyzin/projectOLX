@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 import Photo from './Photo/Photo'
 import style from './style.module.scss'
 import TextArea from '../FormElements/TextArea'
-import { checkLengthInput } from '../../GlobalFunctions/GlobalFunctions'
+import { checkLengthInput } from '../../Services/helpersForComponents'
 import { RouteComponentProps } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
@@ -73,6 +73,8 @@ const AddAdv = (props: IProps) => {
         !props.match.params.id && props.deleteAdvData() // удаляем стейт если с редактирования уходим в создание
     }, [props.match.params.id])
 
+
+
     const submitHandler = (e: React.FormEvent<Element>) => {
         const refPhotos = [refPhoto1, refPhoto2, refPhoto3]
         const errors = []
@@ -110,10 +112,10 @@ const AddAdv = (props: IProps) => {
     return (
         <div className="row">
             <Helmet>
-                <title>Разместить объявление - Success</title>
-                <meta name="description" content="Форма создания объявления" />
+                <title>Post an advert - Success</title>
+                <meta name="description" content="Ad creation form" />
             </Helmet>
-            <h1 className="center-align">Разместить объявление на Success</h1>
+            <h1 className="center-align">Post advert</h1>
             <div className={style.photoWrapper}>
                 <Photo id="photo1" refPhoto={refPhoto1} src={props.advData.images[0]?.url || ''} />
                 <Photo id="photo2" refPhoto={refPhoto2} src={props.advData.images[1]?.url || ''} />
@@ -123,33 +125,33 @@ const AddAdv = (props: IProps) => {
                 <Input
                     id="title"
                     type="text"
-                    labelText="Заголовок"
+                    labelText="Title"
                     value={title}
                     onChangeHandler={titleHandler}
                     maxLength={maxTitleLength}
-                    dataError={"Не менее " + minTitleLength + " символов"}
+                    dataError={"Must be at last " + minTitleLength + " characters"}
                 />
                 <TextArea
                     id="description"
-                    labelText="Описание объявления"
+                    labelText="Description"
                     value={description}
                     onChangeHandler={descriptionHandler}
                     maxLength={maxDescriptionLength}
-                    dataError={"Не менее " + minDescriptionLength + " символов"}
+                    dataError={"Must be at last " + minDescriptionLength + " characters"}
                 />
                 <Input
                     id="address"
                     type="text"
-                    labelText="Ваш адресс"
+                    labelText="Address"
                     value={address}
                     onChangeHandler={addressHandler}
                     maxLength={maxAddressLength}
-                    dataError={"Не менее " + minAddressLength + " символов"}
+                    dataError={"Must be at last " + minAddressLength + " characters"}
                 />
                 <Input
                     id="price"
                     type="number"
-                    labelText="Цена"
+                    labelText="Price"
                     value={price}
                     onChangeHandler={priceHandler}
                 />
@@ -159,10 +161,10 @@ const AddAdv = (props: IProps) => {
                     labelText="Теги"
                     value={tags}
                     onChangeHandler={tagsHandler}
-                    dataTooltip="<div>Вводите теги </div><div>через запятую</div>"
+                    dataTooltip="<div>Enter tags </div><div>separated by commas</div>"
                 />
                 {/* {props.errorServer && <div className="card-panel red lighten-3">{props.errorServer}</div>} */}
-                <button className="btn waves-effect waves-light" type="submit" name="action">Создать
+                <button className="btn waves-effect waves-light" type="submit" name="action">Add
           <i className="material-icons right">send</i>
                 </button>
             </form>

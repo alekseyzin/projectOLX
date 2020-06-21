@@ -53,9 +53,9 @@ const Comments = (props: TProps) => {
 
     return (
         <div className={style.commentsWrapper}>
-            <h2>Комментарии</h2>
+            <h2>Comments</h2>
             <div className={style.comments}>
-                {!props.commentsData.length && <p>Еще ни кто не написал. Напиши первым.</p>}
+                {!props.commentsData.length && <p>No comments yet. Be the first to write</p>}
                 <ul>
                     {printComments(props.commentsData)}
                     {/* {props.commentsData.map((d: IGetCommentsSuccess) => (
@@ -89,7 +89,7 @@ const Comments = (props: TProps) => {
                 </ul>
             </div>
             <div className={style.answer}>
-                <h2>Написать комментарий</h2>
+                <h2>Write comment</h2>
                 <Answer commentID={null} answerClosed={false} />
             </div>
         </div>

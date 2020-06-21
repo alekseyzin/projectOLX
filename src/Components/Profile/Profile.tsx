@@ -3,7 +3,7 @@ import classnames from 'classnames'
 import { bindActionCreators, Dispatch } from 'redux'
 import { IRootAction, IRootState } from '../../store/rootReducer'
 import * as profileActions from '../../store/profile/actions'
-import { checkLengthInput, checkEmail, checkPhones } from '../../GlobalFunctions/GlobalFunctions'
+import { checkLengthInput, checkEmail, checkPhones } from '../../Services/helpersForComponents'
 import style from './style.module.scss'
 import Input from '../FormElements/Input'
 import { connect } from 'react-redux'
@@ -101,10 +101,10 @@ const Profile: React.FC<IProps> = (props: IProps) => {
   return (
     <div className={classnames("row", style.wrapper)}>
       <Helmet>
-        <title>Профиль - Success</title>
-        <meta name="description" content="Подмарафеть свой лук" />
+        <title>Profile - Success</title>
+        <meta name="description" content="Create your profile" />
       </Helmet>
-      <h1 className="center-align">Профиль</h1>
+      <h1 className="center-align">Profile</h1>
       <Avatar />
       <form className="col s12 m6 offset-m3" onSubmit={submitHandler} >
         <Input
@@ -114,39 +114,39 @@ const Profile: React.FC<IProps> = (props: IProps) => {
           value={login}
           onChangeHandler={loginHandler}
           // onBlurHandler={checkEmail}
-          dataError={"Это не похоже на E-mail"}
+          dataError={"This is not like E-mail"}
         />
         <Input
           id="nick"
           type="text"
-          labelText="Ваше имя"
+          labelText="Name"
           value={nick}
           onChangeHandler={nickHandler}
           maxLength={maxNickLength}
-          dataError={"Не менее " + minNickLength + " символов"}
+          dataError={"Must be at last " + minNickLength + " characters"}
         />
         <Input
           id="tel"
           type="tel"
-          labelText="Ваш номер телефона"
+          labelText="Phone number"
           value={phones}
           onChangeHandler={phonesHandler}
           // onBlurHandler={checkPhones}
-          dataTooltip="<div>Вы можете ввести</div><div>до 3х номеров телефонов</div><div>через запятую</div>"
-          dataError={"Это не похоже на номер телефона. 8 XXX XXX XX XX"}
+          dataTooltip="<div>You can enter up</div><div>to 3 phone numbers</div><div>separated comma</div>"
+          dataError={"This is not like phone number. 8 XXX XXX XX XX"}
         />
         <Input
           id="addresses"
           type="text"
-          labelText="Ваш адрес"
+          labelText="Address"
           value={addresses}
           onChangeHandler={addressesHandler}
           maxLength={maxAddressLength}
-          dataError={"Не менее " + minAddressLength + " символов"}
+          dataError={"Must be at last " + minAddressLength + " characters"}
         />
         {props.errorServer && <div className="card-panel red lighten-3">{props.errorServer}</div>}
-        <button className="btn waves-effect waves-light" type="submit" name="action">Редактировать
-          <i className="material-icons right">send</i>
+        <button className="btn waves-effect waves-light" type="submit" name="action">Edit
+          <i className="material-icons right">Send</i>
         </button>
       </form>
     </div>

@@ -35,11 +35,14 @@ type IProps = ReturnType<typeof mapStateToProps>
 const Routes: React.FC<IProps> = (props) => {
 
   return (
-    <React.Suspense fallback={<div>Грузим..</div>}>
+    <React.Suspense fallback={<div>Loading...</div>}>
+
       <Switch>
         {props.authToken && <Redirect exact from="/authorization" to="/" />}
         {props.authToken && <Redirect exact from="/registration" to="/" />}
-        {props.authToken || <Redirect exact from="/" to="/authorization" />}
+        <Route exact path="/registration" component={Registration} />
+        {/* {!props.authToken && <Redirect from="/" to="/authorization" />} */}
+        {!props.authToken && <Route path="/" component={Authorization} />}
 
         <Route exact path="/" component={Advs} />
         <Route exact path="/q-:q/page-:id" component={Advs} />
@@ -53,7 +56,7 @@ const Routes: React.FC<IProps> = (props) => {
 
         <Route exact path="/authorization" component={Authorization} />
 
-        <Route exact path="/registration" component={Registration} />
+
         <Route exact path="/regsuccess" component={RegSuccess} />
 
         <Route exact path="/profile" component={Profile} />

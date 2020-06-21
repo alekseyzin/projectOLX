@@ -37,7 +37,7 @@ const InputTypeText = (props: IProps) => {
           data-length={props.maxLength}
         />
         <label htmlFor={props.id} className="active">{props.labelText}</label>
-        <span className="helper-text" data-error={props.dataError} data-success="Годится"></span>
+        <span className="helper-text" data-error={props.dataError} data-success="Good"></span>
       </div>
     </div>
   )

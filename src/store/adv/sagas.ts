@@ -9,8 +9,12 @@ export function* getAdvCardData() {
         const jwtToken = yield select(state => state.auth.authData.authToken)
         try {
             const result = yield call(queryAdvData, payload, jwtToken)
-            const advData = handlerAdvCardData(result)
-            yield put(actions.getAdvCard.success(advData))
+            if (result) {
+                const advData = handlerAdvCardData(result)            
+                yield put(actions.getAdvCard.success(advData))
+            } else {
+                yield put(actions.getAdvCard.failure(false))
+            }           
         } catch (e) {
             console.error(e)
             yield put(actions.getAdvCard.failure(false))

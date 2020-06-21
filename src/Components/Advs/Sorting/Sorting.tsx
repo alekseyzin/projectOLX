@@ -34,15 +34,15 @@ const Sorting = (props: IProps) => {
 
     const advsLimitArr = [5, 10, 20, 80]
     const sortArr: IsortArr[] = [
-        { id: 1, text: "Самые новые", value: "dateDesc" },
-        { id: 2, text: "Самые дорогие", value: "priceDesc" },
-        { id: 3, text: "Самые дешовые", value: "priceАsc" },
+        { id: 1, text: "New", value: "dateDesc" },
+        { id: 2, text: "Expensive", value: "priceDesc" },
+        { id: 3, text: "Cheap", value: "priceАsc" },
     ]
 
     return (
         <React.Fragment>
             <div className="col s6 m3">
-                <label>Кол-во объявлений</label>
+                <label>Ads count</label>
                 <select defaultValue={props.advsLimit} className="browser-default" onChange={advsLimitHandler}>
                     {advsLimitArr.map((d) => (
                         <option key={d} value={d}>{d}</option>
@@ -50,7 +50,7 @@ const Sorting = (props: IProps) => {
                 </select>
             </div>
             <div className="col s6 m3">
-                <label>Сортировка</label>
+                <label>Sorting</label>
                 <select value={props.sortType} className="browser-default" onChange={advsSortHandler}>
                     {sortArr.map((d: IsortArr) => (
                         <option key={d.id} value={d.value}>{d.text}</option>

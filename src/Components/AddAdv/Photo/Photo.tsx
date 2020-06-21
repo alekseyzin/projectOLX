@@ -1,6 +1,6 @@
 import React, { useState, RefObject, useEffect } from 'react'
 import style from './style.module.scss'
-import { checkPhoto } from '../../../GlobalFunctions/GlobalFunctions'
+import { checkPhoto } from '../../../Services/helpersForComponents'
 
 interface IProps {
     id: string
@@ -56,13 +56,12 @@ const Photo = (props: IProps) => {
                     <label htmlFor={props.id}><i className="material-icons">add</i></label>
                 </form>
             </div>
-            {/* <a className="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> */}
             <div id="modal1" className="modal">
                 <div className="modal-content">
-                    <p>Не верный формат фото. Поддерживаемые форматы: jpeg, jpg, png, gif</p>
+                    <p>Photo format is invalid. You can use: jpeg, jpg, png, gif</p>
                 </div>
                 <div className="modal-footer">
-                    <a href="#!" className="modal-close waves-effect waves-green btn-flat">Ознакомился</a>
+                    <a href="#!" className="modal-close waves-effect waves-green btn-flat">Ok</a>
                 </div>
             </div>
         </div>

@@ -7,12 +7,12 @@ const RegSuccess = () => {
     return (
         <div className="row">
             <Helmet>
-                <title>Успех Братан - Сакес</title>
-                <meta name="description" content="Поздравляю, ты достик успеха и уважения на Сакесе" />
+                <title>Registration ok - Success</title>
+                <meta name="description" content="Registration was success" />
             </Helmet>
             <div className="col m6 s12 offset-m3 center-align card-panel teal lighten-5">
-                <p>Регистрация прошла успешно</p>
-                <Link to="/authorization">Авторизоваться</Link>
+                <p>Registration was success</p>
+                <Link to="/authorization">Sing in</Link>
             </div>
         </div>
 

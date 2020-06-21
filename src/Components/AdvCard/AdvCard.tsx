@@ -53,54 +53,60 @@ const AdCard = (props: TProps) => {
 
   if (props.isAdv) {
     return (
-      <div className={classnames("row", style.rowcorrect)}>
-        <Helmet>
-          <title>{`${props.advCard.title} - объявление на Сакес`}</title>
-          <meta name="description" content={props.advCard.description.slice(0, 160)} />
-        </Helmet>
-        <div className="col m9 s12">
-          <div className={style.contentWrapper}>
-            <div className={style.topPhoto}>
-              <img alt={props.advCard.title} className="materialboxed" src={img} />
+      <React.Fragment>
+        <div className={classnames("row", style.rowcorrect)}>
+          <Helmet>
+            <title>{`${props.advCard.title} - ad on the Success`}</title>
+            <meta name="description" content={props.advCard.description.slice(0, 160)} />
+          </Helmet>
+          <div className="col m9 s12">
+            <div className={style.contentWrapper}>
+              <div className={style.topPhoto}>
+                <img alt={props.advCard.title} className="materialboxed" src={img} />
+              </div>
+              <div className={style.content}>
+                <h1>{props.advCard.title}</h1>
+                <span className={style.address}>{props.advCard.address}</span>
+                <span className={style.data}>{props.advCard.advDate}</span>
+                <p className={style.description}>{props.advCard.description}</p>
+              </div>
+              {
+                props.advCard.images.map((img, index) => {
+                  if (index > 0) {
+                    return (
+                      <div className={style.topPhoto} key={img._id}>
+                        <img alt={props.advCard.title} className="materialboxed" src={img.url} />
+                      </div>
+                    )
+                  }
+                })
+              }
             </div>
-            <div className={style.content}>
-              <h1>{props.advCard.title}</h1>
-              <span className={style.address}>{props.advCard.address}</span>
-              <span className={style.data}>{props.advCard.advDate}</span>
-              <p className={style.description}>{props.advCard.description}</p>
+          </div>
+          <div className="col m3 s12">
+            <div className={style.sidebarWrapper}>
+              <div className={style.price}>
+                <strong>{props.advCard.price}</strong>
+              </div>
+              <div className={style.phones}>
+                {props.advCard.phones.map((phone: string) => <p key={phone}><i className="material-icons">phone</i>{phone}</p>)}
+              </div>
+              <div className={style.userWrapper}>
+                <img alt={props.advCard.nick} src={props.advCard.avatar} />
+                <span className={style.nick}>{props.advCard.nick}</span>
+                <span className={style.userData}>Registration: {props.advCard.userDate}</span>
+                <a className={classnames("waves-light btn modal-trigger", style.messageBtn)} href="#modal1">Send message</a>
+              </div>
             </div>
-            {
-              props.advCard.images.map((img, index) => {
-                if (index > 0) {
-                  return (
-                    <div className={style.topPhoto} key={img._id}>
-                      <img alt={props.advCard.title} className="materialboxed" src={img.url} />
-                    </div>
-                  )
-                }
-              })
-            }
+          </div>
+          <Message nick={props.advCard.nick} userId={props.advCard.userId} />
+        </div>
+        <div className={classnames("row", style.rowcorrect)}>
+          <div className="col m9 s12">
             <Comments idAdv={props.match.params.id} />
           </div>
         </div>
-        <div className="col m3 s12">
-          <div className={style.sidebarWrapper}>
-            <div className={style.price}>
-              <strong>{props.advCard.price}</strong>
-            </div>
-            <div className={style.phones}>
-              {props.advCard.phones.map((phone: string) => <p key={phone}><i className="material-icons">phone</i>{phone}</p>)}
-            </div>
-            <div className={style.userWrapper}>
-              <img alt={props.advCard.nick} src={props.advCard.avatar} />
-              <span className={style.nick}>{props.advCard.nick}</span>
-              <span className={style.userData}>Регистрация: {props.advCard.userDate}</span>
-              <a className={classnames("waves-light btn modal-trigger", style.messageBtn)} href="#modal1">Написать</a>
-            </div>
-          </div>
-        </div>
-        <Message nick={props.advCard.nick} userId={props.advCard.userId} />
-      </div>
+      </React.Fragment>
     )
   } else {
     return <NotFound />

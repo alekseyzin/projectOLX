@@ -7,7 +7,7 @@ const AdvUser = (props: IAdv) => {
 
     return (
 
-        <div className="col s6 m12">
+        <div className="col s12 m12">
             <div className={style.advWrapper}>
                 <div className={style.photoWrapper}>
                     <Link to={`/advcard/ad-${props._id}`}>
@@ -24,7 +24,7 @@ const AdvUser = (props: IAdv) => {
                         <span className={style.address}>{props.address}</span>
                     </div>
                     <div className={style.controlWrapper}>
-                        <Link to={`/adedit-${props._id}`} className="waves-effect waves-light btn">Редактировать</Link>
+                        <Link to={`/adedit-${props._id}`} className="amber darken-3 waves-light btn">Edit</Link>
                     </div>
                 </div>
             </div>

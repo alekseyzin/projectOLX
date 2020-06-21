@@ -8,10 +8,10 @@ const AdvSuccess = () => {
         <div className={style.wrapper}>
             <div className="row">
                 <div className="col s12 m10 offset-m1">
-                    <h1>Объявление успешно размещено</h1>
-                    <p>Вы можете разместить еще одно объявление</p>
+                    <h1>Ad posted successfully</h1>
+                    <p>You can post one more ad</p>
                     <Link to='/addadv' className="waves-effect waves-light btn">
-                        <i className="material-icons left">add</i>Объявление
+                        <i className="material-icons left">add</i>Advert
                     </Link>
                 </div>
             </div>

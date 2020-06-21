@@ -10,14 +10,13 @@ import { upLoadPhoto } from './api'
 //Comments
 
 export const handlerComentsData = (commentsData: ICommentsDataPayload[]): IGetCommentsSuccess[] => {
-    console.log(commentsData)
     return commentsData && commentsData.map((d) => {
         return {
             _id: d._id,
-            text: d.text ? d.text : "Не умею писать",
+            text: d.text ? d.text : "I can't write",
             createdAt: new Date(Number(d.createdAt)).toLocaleString(),
             avatar: d.owner.avatar?.url ? d.owner.avatar?.url : "images/696abe18feffa8c402f137b7423a869e",
-            nick: d.owner.nick ? d.owner.nick : 'Безымянный',
+            nick: d.owner.nick ? d.owner.nick : 'Noname',
             answers: d.answers !== null ? handlerComentsData(d.answers) : null
         }
     })
@@ -62,13 +61,13 @@ export function handlerAdvCardData(advCardData: IAdvCardPayload): IAdvcardData {
         _id: advCardData._id,
         userId: advCardData.owner._id,
         advDate: formatDate(advCardData.owner.createdAt),
-        title: advCardData.title || "Я не умею писать заголовки",
-        description: advCardData.description || "У меня плохой словарный запас",
-        price: advCardData.price ? `${advCardData.price} грн.` : "Договорная",
-        address: advCardData.address || "Адрес не указан",
+        title: advCardData.title || "I can't wriate headlines",
+        description: advCardData.description || "I don't know many words",
+        price: advCardData.price ? `${advCardData.price} грн.` : "Contract",
+        address: advCardData.address || "Address is empty",
         userDate: formatDate(advCardData.createdAt),
-        phones: advCardData.owner.phones ? advCardData.owner.phones : ['Нет телефона'],
-        nick: advCardData.owner.nick ? advCardData.owner.nick : "Безымянный",
+        phones: advCardData.owner.phones ? advCardData.owner.phones : ['No phone'],
+        nick: advCardData.owner.nick ? advCardData.owner.nick : "Noname",
         avatar: advCardData.owner.avatar
             ? `http://marketplace.asmer.fs.a-level.com.ua/${advCardData.owner.avatar.url}`
             : "https://apollo-ireland.akamaized.net/v1/files/76ojf53mron92-UA/image;s=261x203",
@@ -108,10 +107,10 @@ export function handlerAdvsData(advsData: IAdvsDataPayload[]) {
     return advsData.map((d: IAdvsDataPayload) => {
         return {
             ...d,
-            title: d.title || 'Я не умею писать заголовки',
+            title: d.title || "I can't write headlines",
             createdAt: new Date(Number(d.createdAt)).toLocaleDateString(),
-            price: d.price ? `${d.price} грн` : `Договорная`,
-            address: d.address ? d.address : `Адрес не указан`,
+            price: d.price ? `${d.price} грн` : `Contract`,
+            address: d.address ? d.address : `Address is empty`,
             images: (d.images && d.images[0]?.url)
                 ? `http://marketplace.asmer.fs.a-level.com.ua/${d.images[0].url}`
                 : "https://boatparts.com.ua/design/boatparts/images/no_image.png"
@@ -125,12 +124,12 @@ export function handlerMessagesData(messagesData: IMessageDataPayload[]): IMessa
     return messagesData.map((d: IMessageDataPayload) => {
         return {
             _id: d._id,
-            text: d.text ? d.text : "Не умею писать",
+            text: d.text ? d.text : "I can't write",
             createdAt: formatDate(d.createdAt),
             image: d.image?.url ? d.image.url : null,
             avatar: d.owner.avatar?.url ? d.owner.avatar?.url : "images/696abe18feffa8c402f137b7423a869e",
-            nick: d.owner.nick ? d.owner.nick : 'Безымянный',
-            phones: d.owner.phones?.length ? d.owner.phones.join(', ') : "Нет телефона"
+            nick: d.owner.nick ? d.owner.nick : 'Noname',
+            phones: d.owner.phones?.length ? d.owner.phones.join(', ') : "No phone"
         }
     })
 }

@@ -6,7 +6,7 @@ import style from './style.module.scss'
 import classnames from 'classnames'
 import Input from '../../FormElements/Input'
 import { IRootState, IRootAction } from '../../../store/rootReducer'
-import { checkEmail } from '../../../GlobalFunctions/GlobalFunctions'
+import { checkEmail } from '../../../Services/helpersForComponents'
 import { Helmet } from 'react-helmet'
 
 const mapStateToProps = (state: IRootState) => ({
@@ -54,10 +54,10 @@ const Authorization: React.FC<AuthProps> = (props) => {
   return (
     <div className={classnames("row container", style.wrapper)}>
       <Helmet>
-        <title>Авторизация - Сакес</title>
+        <title>Authorization- Success</title>
         <meta name="description" content="Форма автризации на сайте Сакес" />
       </Helmet>
-      <h1 className="center-align">Авторизация</h1>
+      <h1 className="center-align">Authorization</h1>
       <form className="col s6 offset-s3" onSubmit={submitHandler} >
         <Input
           id="login"
@@ -65,7 +65,7 @@ const Authorization: React.FC<AuthProps> = (props) => {
           labelText="Email"
           value={login}
           onChangeHandler={loginHandler}
-          dataError="Это не похоже на E-mail"
+          dataError="This is not like E-mail"
         />
         <Input
           id="password"
@@ -73,11 +73,11 @@ const Authorization: React.FC<AuthProps> = (props) => {
           labelText="Password"
           value={password}
           onChangeHandler={passwordHandler}
-          dataError={"Не менее " + minPassLength + " символов"}
+          dataError={"Must be at last " + minPassLength + " characters"}
         />
         {props.error && <div className="card-panel red lighten-3">{props.error}</div>}
         <button className="btn waves-effect waves-light" type="submit" name="action">Submit
-          <i className="material-icons right">send</i>
+          <i className="material-icons right">Sing in</i>
         </button>
       </form>
     </div>

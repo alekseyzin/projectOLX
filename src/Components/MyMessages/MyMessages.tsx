@@ -37,14 +37,14 @@ const MyMessages = (props:TProps) => {
     // console.log(page)
     return(
         <div className={style.messagesWrapper}>
-            <h1>Входящие сообщения</h1>
+            <h1>Incoming messages</h1>
             {props.messagesData.length 
                 ? props.messagesData.map(d => <Message key={d._id} data={d}/>)
                 : <div className="center-align">
-                    <p>Если тебе никто не пишет...</p>
-                    <p>Задумайся...</p>
-                    <p>может быть</p>
-                    <p>ты полковник?</p>
+                    <p>If no one writes to you...</p>
+                    <p>Think about it...</p>
+                    <p>May be</p>
+                    <p>You're colonel?</p>
                 </div>
             }
             <Pagination
