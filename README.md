@@ -2,7 +2,7 @@
 
 During development, I have used to React, Redux-Saga, GraphQL query, and functional component.
 
-__Site__: http://alzsuccess.surge.sh/
+__Demo__: http://alzsuccess.surge.sh/
 
 ### What is done: 
 * Registration
