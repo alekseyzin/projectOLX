@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classnames from 'classnames'
+import M from 'materialize-css'
 
 interface IProps {
   type: string;
@@ -15,10 +16,10 @@ interface IProps {
 
 const InputTypeText = (props: IProps) => {
 
-  document.addEventListener('DOMContentLoaded', function() {
+  useEffect(() => {
     let elems = document.querySelectorAll('.tooltipped');
     M.Tooltip.init(elems, {});
-  });
+  }, [])
 
   return (
     

@@ -23,13 +23,14 @@ export const handlerComentsData = (commentsData: ICommentsDataPayload[]): IGetCo
 }
 
 //AddAdv
-//refPhotos: IAdv["refPhotos"][]
+//refPhotos: IAdv["refPhotos"]
 
 export async function handlerAddImg(oldImages: IAdv["oldImages"], refPhotos: any, jwtToken: string) {
+    console.log(refPhotos)
     const idPhotos = [];
     for (let i = 0; i < 3; i++) {
         let imgId = (oldImages && oldImages[i]?._id) ? oldImages[i]._id : null
-        if (refPhotos[i].current.elements[0].files.length) {
+        if (refPhotos[i]?.current?.elements[0].files.length) {
             const body = new FormData(refPhotos[i].current)
             imgId = await upLoadPhoto(jwtToken, body)
         }

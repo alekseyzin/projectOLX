@@ -86,8 +86,8 @@ const Authorization: React.FC<AuthProps> = (props) => {
           dataError={"Must be at last " + minPassLength + " characters"}
         />
         {props.error && <div className="card-panel red lighten-3">{props.error}</div>}
-        <button className="btn waves-effect waves-light" type="submit" name="action">Submit
-          <i className="material-icons right">Send</i>
+        <button className="btn waves-effect waves-light" type="submit" name="action">Send
+          <i className="material-icons right">send</i>
         </button>
       </form>
     </div>

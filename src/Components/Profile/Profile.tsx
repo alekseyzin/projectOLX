@@ -146,7 +146,7 @@ const Profile: React.FC<IProps> = (props: IProps) => {
         />
         {props.errorServer && <div className="card-panel red lighten-3">{props.errorServer}</div>}
         <button className="btn waves-effect waves-light" type="submit" name="action">Edit
-          <i className="material-icons right">Send</i>
+          <i className="material-icons right">send</i>
         </button>
       </form>
     </div>
