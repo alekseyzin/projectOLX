@@ -1,6 +1,6 @@
 # Ads Board
 
-During development, I have used to React, Redux-Saga, GraphQL query, and functional component.
+During development, I have used to React, Redux-Saga, Type Script, GraphQL query, and functional component.
 
 __Demo__: http://alzsuccess.surge.sh/
 
