@@ -19,9 +19,11 @@ export function* getAdvsData() {
                 const pagesCount = Math.ceil(advsCount / limit)
                 let queryAdv = getAdvsDataQuery(filter, advsCount, page, limit, sortType)
                 const result = yield call(queryAdvsData, jwtToken, queryAdv)
-                const advsData = handlerAdvsData(result)
+                const advsData = handlerAdvsData(result)                
                 yield put(actions.getAdvs.success({ advsData, pagesCount }))
 
+            } else {
+                yield put(actions.getAdvs.success({ advsData: [], pagesCount: 1 }))
             }
         } catch (e) {
             console.error(e)

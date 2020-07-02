@@ -3,7 +3,8 @@ html{
 }
 h1{
     font-size: 3rem;
-    /* margin: 0; */
+    padding: 0;
+    margin: 1rem 0;
   }
 #root{
   background-color: #f7f7f7;
@@ -12,4 +13,9 @@ h1{
 main{
   min-height: calc(100vh - 114px);
   overflow: hidden;
+}
+
+.bg-cont {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

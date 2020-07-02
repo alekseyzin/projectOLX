@@ -1,7 +1,7 @@
 .logoWrapper {
     position: relative;
     width: 140px;
-    margin: 0 auto 20px auto;
+    margin: 0 auto 10px auto;
 
     .avatar {
         width: 100%;
@@ -45,6 +45,13 @@
             color: black;
         }
     }
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 

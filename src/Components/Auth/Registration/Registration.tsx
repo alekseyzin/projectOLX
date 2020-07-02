@@ -29,8 +29,8 @@ type AuthProps = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispa
 
 const Authorization: React.FC<AuthProps> = (props) => {
 
-  const [login, setLogin] = useState('life')
-  const [password, setPassword] = useState('lifemr')
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
 
   const minPassLength = 5;
 

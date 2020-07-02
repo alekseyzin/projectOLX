@@ -20,6 +20,10 @@
             margin-left: 20px;
             margin-top: 10px;
         }
+
+        ul>li>ul>li>ul>li>div>div:nth-child(3) {
+            display: none;
+        }
     }
 
     .answer {

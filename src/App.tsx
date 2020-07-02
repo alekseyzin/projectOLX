@@ -32,7 +32,7 @@ const App = () => {
       <ConnectedRouter history={history}>
         <Header />
         <main>
-          <div className="container">
+          <div className="container bg-cont">
             <Bread />
             <Routes />
           </div>

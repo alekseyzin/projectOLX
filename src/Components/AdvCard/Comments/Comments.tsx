@@ -41,7 +41,7 @@ const Comments = (props: TProps) => {
                         nick={d.nick}
                         text={d.text}
                         _id={d._id}
-                        answerExist={d.answers ? true : false}
+                        answerExist={true}
                     />
                     <ul>
                         { d.answers && printComments(d.answers)}
